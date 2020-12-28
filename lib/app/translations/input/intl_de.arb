@@ -1,0 +1,70 @@
+{
+  "@@locale": "de",
+  "@@last_modified": "2020-12-28T17:34:28.700897",
+  "appName": "Einkaufsliste",
+  "@appName": {
+    "type": "Text",
+    "description": "app name",
+    "context": " common"
+  },
+  "dayNameMonday": "Montag",
+  "@dayNameMonday": {
+    "type": "Text",
+    "context": " common"
+  },
+  "dayNameTuesday": "Dienstag",
+  "@dayNameTuesday": {
+    "type": "Text",
+    "context": " common"
+  },
+  "dayNameWednesday": "Mittwoch",
+  "@dayNameWednesday": {
+    "type": "Text",
+    "context": " common"
+  },
+  "dayNameThursday": "Donnerstag",
+  "@dayNameThursday": {
+    "type": "Text",
+    "context": " common"
+  },
+  "dayNameFriday": "Freitag",
+  "@dayNameFriday": {
+    "type": "Text",
+    "context": " common"
+  },
+  "dayNameSaturday": "Samstag",
+  "@dayNameSaturday": {
+    "type": "Text",
+    "context": " common"
+  },
+  "dayNameSunday": "Sontag",
+  "@dayNameSunday": {
+    "type": "Text",
+    "context": " common"
+  },
+  "navigationTabShoppingListTitle": "Einkaufsplan",
+  "@navigationTabShoppingListTitle": {
+    "type": "Text",
+    "context": " navigation"
+  },
+  "navigationTabMenuListTitle": "Essensplan",
+  "@navigationTabMenuListTitle": {
+    "type": "Text",
+    "context": " navigation"
+  },
+  "navigationTabUnknownTitle": "TODO",
+  "@navigationTabUnknownTitle": {
+    "type": "Text",
+    "context": " navigation"
+  },
+  "menuListTitle": "Essensplan",
+  "@menuListTitle": {
+    "type": "Text",
+    "context": " menu list"
+  },
+  "menuListFabTooltip": "Hinzufügen",
+  "@menuListFabTooltip": {
+    "type": "Text",
+    "context": " menu list"
+  }
+}

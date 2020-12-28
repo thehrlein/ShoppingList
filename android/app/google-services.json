@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "742942895960",
+    "project_id": "shoppinglist-4ad12",
+    "storage_bucket": "shoppinglist-4ad12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742942895960:android:0bc4d1d68e511fdbc6ff2d",
+        "android_client_info": {
+          "package_name": "com.tobiapplications.shopping_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "742942895960-h6apjgtobdlhu523lt451l2ned7e6dhd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSQ9iBOAuwUMgYeW3OV5ELYt4tI06KWF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "742942895960-h6apjgtobdlhu523lt451l2ned7e6dhd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
