@@ -6,10 +6,14 @@ ThemeData darkTheme = ThemeData(
   primaryColor: Colors.black,
   brightness: Brightness.dark,
   accentColor: Colors.white,
-  accentIconTheme: IconThemeData(color: Colors.black),
+  accentIconTheme: IconThemeData(color: Colors.white),
   dividerColor: Colors.black12,
   scaffoldBackgroundColor: Colors.black,
   fontFamily: "JetBrainsMono",
+  buttonTheme: ButtonThemeData(
+    buttonColor: Colors.white,
+    textTheme: ButtonTextTheme.primary,
+  ),
   appBarTheme: AppBarTheme(
     color: Colors.black,
     brightness: Brightness.dark,
@@ -25,8 +29,10 @@ ThemeData darkTheme = ThemeData(
   ),
   tabBarTheme: TabBarTheme(
     labelPadding: EdgeInsets.symmetric(horizontal: Spaces.space_2),
-    labelStyle: TextStyle(fontFamily: "JetBrainsMono", fontSize: FontSizes.font_size_body_2),
-    unselectedLabelStyle: TextStyle(fontFamily: "JetBrainsMono", fontSize: FontSizes.font_size_body_2),
+    labelStyle: TextStyle(
+        fontFamily: "JetBrainsMono", fontSize: FontSizes.font_size_body_2),
+    unselectedLabelStyle: TextStyle(
+        fontFamily: "JetBrainsMono", fontSize: FontSizes.font_size_body_2),
     labelColor: Colors.white,
     indicator: UnderlineTabIndicator(
       borderSide: BorderSide(

@@ -61,7 +61,9 @@ class _MenuListScreenState extends State<MenuListScreen> {
         MenuPlanItem item = filteredItems[index];
         return _createMenuPlanItem(item);
       },
-      separatorBuilder: (context, index) => Divider(),
+      separatorBuilder: (context, index) => Divider(
+        color: Theme.of(context).accentColor,
+      ),
       itemCount: filteredItems.length,
     );
   }
@@ -74,7 +76,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
           borderRadius: BorderRadius.circular(Sizes.border_radius_medium),
         ),
         child: Padding(
-          padding: EdgeInsets.all(Spaces.space_2),
+          padding: EdgeInsets.all(Spaces.space_4),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

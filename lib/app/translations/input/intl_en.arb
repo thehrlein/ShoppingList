@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2020-12-28T17:34:28.700897",
+  "@@last_modified": "2020-12-30T16:02:36.786411",
   "appName": "Shopping List",
   "@appName": {
     "type": "Text",
@@ -66,5 +66,30 @@
   "@menuListFabTooltip": {
     "type": "Text",
     "context": " menu list"
+  },
+  "menuDetailsTitle": "Details",
+  "@menuDetailsTitle": {
+    "type": "Text",
+    "context": " menu details"
+  },
+  "menuDetailsHeadline": "Select day and dish",
+  "@menuDetailsHeadline": {
+    "type": "Text",
+    "context": " menu details"
+  },
+  "menuDetailsButtonSave": "Save",
+  "@menuDetailsButtonSave": {
+    "type": "Text",
+    "context": " menu details"
+  },
+  "menuDetailsButtonDelete": "Delete",
+  "@menuDetailsButtonDelete": {
+    "type": "Text",
+    "context": " menu details"
+  },
+  "menuDetailsInputHint": "What you wanna eat?",
+  "@menuDetailsInputHint": {
+    "type": "Text",
+    "context": " menu details"
   }
 }

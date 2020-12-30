@@ -14,6 +14,9 @@ class MenuListCubit extends Cubit<MenuListState> {
 
   MenuListCubit(this._menuRepository) : super(MenuLoading()) {
     refreshMenuList();
+    _menuRepository.getAndListenToMenuPlan().listen((event) {
+      emit(MenuListState.loaded(menuPlan: event));
+    });
   }
 
   Future<void> refreshMenuList() {

@@ -15,12 +15,19 @@ class MenuDetailsCubit extends Cubit<MenuDetailsState> {
 
   MenuDetailsCubit(this._menuRepository) : super(MenuDetailsLoaded());
 
-  Future<void> saveDish(MenuPlanItem menuPlanItem){
-    _menuRepository.saveDish(menuPlanItem);
+  Future<void> saveDish(MenuPlanItem menuPlanItem) {
+    emit(MenuDetailsLoading());
+    return _menuRepository
+        .saveDish(menuPlanItem)
+        .then((value) => Future.delayed(Duration(seconds: 2)))
+        .then((value) => emit(MenuDetailsLoaded()));
   }
 
   Future<void> deleteDish(MenuPlanDay day) {
-    return _menuRepository.deleteDish(day);
+    emit(MenuDetailsLoading());
+    return _menuRepository
+        .deleteDish(day)
+        .then((value) => Future.delayed(Duration(seconds: 2)))
+        .then((value) => emit(MenuDetailsLoaded()));
   }
-
 }

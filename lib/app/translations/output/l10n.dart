@@ -164,6 +164,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Details`
+  String get menuDetailsTitle {
+    return Intl.message(
+      'Details',
+      name: 'menuDetailsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wähle Tag und Gericht`
+  String get menuDetailsHeadline {
+    return Intl.message(
+      'Wähle Tag und Gericht',
+      name: 'menuDetailsHeadline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Speichern`
+  String get menuDetailsButtonSave {
+    return Intl.message(
+      'Speichern',
+      name: 'menuDetailsButtonSave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Löschen`
+  String get menuDetailsButtonDelete {
+    return Intl.message(
+      'Löschen',
+      name: 'menuDetailsButtonDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Was möchtest du essen?`
+  String get menuDetailsInputHint {
+    return Intl.message(
+      'Was möchtest du essen?',
+      name: 'menuDetailsInputHint',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

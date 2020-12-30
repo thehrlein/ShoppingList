@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shopping_list/app/translations/output/l10n.dart';
 import 'package:shopping_list/app/utils/dimens.dart';
 import 'package:shopping_list/models/menu/menu_plan_day.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
@@ -17,78 +18,102 @@ class MenuDetailsScreen extends StatefulWidget {
 class _MenuDetailsState extends State<MenuDetailsScreen> {
   final _dishController = TextEditingController();
   MenuPlanDay _selectedDay;
-  MenuPlanItem _clickedItem;
 
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
       setState(() {
-        _clickedItem =
+        MenuPlanItem clickedItem =
             ModalRoute.of(context).settings.arguments as MenuPlanItem;
-        if (_clickedItem != null) {
-          _dishController.text = _clickedItem.dish;
-          _selectedDay = _clickedItem.day;
+        if (clickedItem != null) {
+          _dishController.text = clickedItem.dish;
+          _selectedDay = clickedItem.day;
         }
       });
     });
   }
 
   void _onSave() {
-    MenuPlanItem item =
-        MenuPlanItem(day: _selectedDay, dish: _dishController.text);
+    String dish = _dishController.text;
+    if (dish.isEmpty) return;
+    MenuPlanItem item = MenuPlanItem(day: _selectedDay, dish: dish);
     widget.menuDetailsCubit.saveDish(item);
   }
 
   void _onDelete() {
-    widget.menuDetailsCubit.deleteDish(_selectedDay);
+    widget.menuDetailsCubit
+        .deleteDish(_selectedDay)
+        .then((value) => _dishController.text = "");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Details"),
+        title: Text(S.of(context).menuDetailsTitle),
       ),
       body: BlocBuilder<MenuDetailsCubit, MenuDetailsState>(
         cubit: widget.menuDetailsCubit,
         builder: (context, state) {
           return state.when(
-            loading: () => Container(),
-            loaded: () => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Select day and dish"),
-                  Divider(
-                    color: Theme.of(context).accentColor,
+              loading: () => Stack(
+                    children: [
+                      Center(child: CircularProgressIndicator()),
+                      _buildDetailsContent(false),
+                    ],
                   ),
-                  _DayDropdown(
-                    onValueChange: (MenuPlanDay day) {
-                      _selectedDay = day;
-                    },
-                    menuPlanItem: _clickedItem,
-                  ),
-                  TextField(
-                    controller: _dishController,
-                  ),
-                  SizedBox(height: Spaces.space_4),
-                  RaisedButton(
-                    color: Theme.of(context).accentColor,
-                    textColor: Theme.of(context).primaryColor,
-                    onPressed: () => _onSave(),
-                    child: Text("save"),
-                  ),
-                  RaisedButton(
-                    color: Theme.of(context).accentColor,
-                    textColor: Theme.of(context).primaryColor,
-                    onPressed: () => _onDelete(),
-                    child: Text("delete"),
-                  )
-                ],
+              loaded: () => _buildDetailsContent(true));
+        },
+      ),
+    );
+  }
+
+  Widget _buildDetailsContent(bool modifiable) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(Spaces.space_4),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              S.of(context).menuDetailsHeadline,
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            SizedBox(
+              height: Spaces.space_6,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _DayDropdown(
+                onValueChange: (MenuPlanDay day) {
+                  _selectedDay = day;
+                },
+                modifiable: modifiable,
+                selectedDay: _selectedDay,
               ),
             ),
-          );
-        },
+            TextField(
+              enabled: modifiable,
+              controller: _dishController,
+              decoration: InputDecoration(
+                labelText: S.of(context).menuDetailsInputHint,
+              ),
+            ),
+            SizedBox(
+              height: Spaces.space_6,
+            ),
+            RaisedButton(
+              onPressed: () => modifiable ? _onSave() : null,
+              child: Text(S.of(context).menuDetailsButtonSave),
+            ),
+            RaisedButton(
+              color: Colors.red,
+              onPressed: () => modifiable ? _onDelete() : null,
+              child: Text(S.of(context).menuDetailsButtonDelete),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -101,10 +126,14 @@ class _MenuDetailsState extends State<MenuDetailsScreen> {
 }
 
 class _DayDropdown extends StatefulWidget {
-  final MenuPlanItem menuPlanItem;
   final Function(MenuPlanDay) onValueChange;
+  final bool modifiable;
+  final selectedDay;
 
-  _DayDropdown({@required this.onValueChange, this.menuPlanItem});
+  _DayDropdown(
+      {@required this.onValueChange,
+      @required this.modifiable,
+      this.selectedDay});
 
   @override
   State createState() => _DayDropdownState();
@@ -116,19 +145,14 @@ class _DayDropdownState extends State<_DayDropdown> {
   @override
   void initState() {
     super.initState();
-    _setSelectedDay(widget.menuPlanItem != null
-        ? widget.menuPlanItem.day
-        : MenuPlanDay.monday);
+    _setSelectedDay(widget.selectedDay ?? MenuPlanDay.monday);
   }
-
 
   @override
   void didUpdateWidget(_DayDropdown oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.menuPlanItem != widget.menuPlanItem) {
-      _setSelectedDay(widget.menuPlanItem != null
-          ? widget.menuPlanItem.day
-          : MenuPlanDay.monday);
+    if (oldWidget.selectedDay != widget.selectedDay) {
+      _setSelectedDay(widget.selectedDay ?? MenuPlanDay.monday);
     }
   }
 
@@ -137,22 +161,24 @@ class _DayDropdownState extends State<_DayDropdown> {
     _selectedDay = day;
   }
 
+  void _updateSelectedDay(MenuPlanDay day) {
+    setState(() {
+      _setSelectedDay(day);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
-      value: _selectedDay,
-      items: [
-        for (var day in MenuPlanDay.values)
-          DropdownMenuItem(
-            child: Text(day.getLocalizedDay(context)),
-            value: day,
-          )
-      ],
-      onChanged: (day) {
-        setState(() {
-          _setSelectedDay(day);
-        });
-      },
-    );
+        value: _selectedDay,
+        disabledHint: Text(_selectedDay.getLocalizedDay(context)),
+        items: [
+          for (var day in MenuPlanDay.values)
+            DropdownMenuItem(
+              child: Text(day.getLocalizedDay(context)),
+              value: day,
+            )
+        ],
+        onChanged: widget.modifiable ? _updateSelectedDay : null);
   }
 }
