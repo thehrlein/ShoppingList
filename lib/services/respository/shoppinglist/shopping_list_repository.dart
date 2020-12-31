@@ -8,5 +8,5 @@ abstract class ShoppingListRepository {
   Future<ShoppingList> getShoppingList();
   Stream<ShoppingList> getAndListenToShoppingList();
   Future<void> saveShoppingItem(ShoppingItem shoppingItem);
-  Future<void> removeShoppingItem(ShoppingItem shoppingItem);
+  Future<void> deleteShoppingItem(ShoppingItem shoppingItem);
 }

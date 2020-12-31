@@ -14,7 +14,7 @@ class MenuListCubit extends Cubit<MenuListState> {
 
   MenuListCubit(this._menuRepository) : super(MenuLoading()) {
     _menuRepository.getAndListenToMenuPlan().listen((event) {
-      emit(MenuListState.loaded(menuPlan: event));
+      emit(MenuLoaded(menuPlan: event));
     });
   }
 

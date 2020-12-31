@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_list/app/navigation/routes.dart';
 import 'package:shopping_list/app/translations/output/l10n.dart';
 import 'package:shopping_list/app/utils/auto_bloc_provider.dart';
+import 'package:shopping_list/app/utils/dimens.dart';
 import 'package:shopping_list/models/menu/menu_plan.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
 import 'package:shopping_list/ui/screens/menulist/cubit/menu_list_cubit.dart';
 import 'package:shopping_list/models/menu/menu_plan_day.dart';
+import 'package:shopping_list/ui/widgets/loading.dart';
+import 'package:shopping_list/ui/widgets/small_divider.dart';
 
 class MenuListScreen extends StatefulWidget {
   @override
@@ -30,7 +33,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
             ),
             body: RefreshIndicator(
               child: state.when(
-                loading: () => _showLoading(),
+                loading: () => SimpleLoadingIndicator(),
                 loaded: (plan) => _showMenuList(plan),
               ),
               onRefresh: () => context.read<MenuListCubit>().refreshMenuList(),
@@ -60,9 +63,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
         MenuPlanItem item = filteredItems[index];
         return _createMenuPlanItem(item);
       },
-      separatorBuilder: (context, index) => Divider(
-        color: Theme.of(context).accentColor,
-      ),
+      separatorBuilder: (context, index) => SmallDivider(),
       itemCount: filteredItems.length,
     );
   }
@@ -71,7 +72,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
     return InkWell(
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(Spaces.space_4),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -88,12 +89,6 @@ class _MenuListScreenState extends State<MenuListScreen> {
         ),
       ),
       onTap: () => Routes.openMenuDetails(context, menuPlanItem: item),
-    );
-  }
-
-  Widget _showLoading() {
-    return Center(
-      child: CircularProgressIndicator(),
     );
   }
 }

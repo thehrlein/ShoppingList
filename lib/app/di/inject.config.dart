@@ -7,6 +7,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../ui/screens/categories/cubit/categories_cubit.dart';
+import '../../services/respository/categories/categories_repository.dart';
+import '../../services/respository/categories/categories_repository_impl.dart';
 import '../../services/datasource/firebase/firestore_datasource.dart';
 import '../../services/datasource/firebase/firestore_datasource_impl.dart';
 import '../../ui/screens/menudetails/cubit/menu_details_cubit.dart';
@@ -33,6 +36,8 @@ GetIt $initGetIt(
   gh.factory<MenuListCubit>(() => MenuListCubit(get<MenuRepository>()));
   gh.factory<ShoppingListCubit>(
       () => ShoppingListCubit(get<ShoppingListRepository>()));
+  gh.factory<CategoriesCubit>(
+      () => CategoriesCubit(get<CategoriesRepository>()));
 
   // Eager singletons must be registered in the right order
   gh.singleton<FirestoreDatasource>(FirestoreDatasourceImpl());
@@ -40,5 +45,7 @@ GetIt $initGetIt(
   gh.singleton<NavigationManager>(NavigationManager());
   gh.singleton<ShoppingListRepository>(
       ShoppingListRepositoryImpl(get<FirestoreDatasource>()));
+  gh.singleton<CategoriesRepository>(
+      CategoriesRepositoryImpl(get<FirestoreDatasource>()));
   return get;
 }

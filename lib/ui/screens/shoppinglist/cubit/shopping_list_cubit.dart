@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shopping_list/models/shopping/shopping_item.dart';
-import 'package:shopping_list/services/respository/menu/menu_repository.dart';
 import 'package:shopping_list/models/shopping/shopping_list.dart';
 import 'package:shopping_list/services/respository/shoppinglist/shopping_list_repository.dart';
 
@@ -40,6 +39,6 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
   }
 
   Future<void> deleteShoppingItem(ShoppingItem shoppingItem) {
-    return _shoppingListRepository.removeShoppingItem(shoppingItem);
+    return _shoppingListRepository.deleteShoppingItem(shoppingItem);
   }
 }

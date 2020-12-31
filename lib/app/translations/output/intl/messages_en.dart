@@ -22,6 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "appName" : MessageLookupByLibrary.simpleMessage("Shopping List"),
+    "categoriesAddDialogButtonCancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
+    "categoriesAddDialogButtonSave" : MessageLookupByLibrary.simpleMessage("Save"),
+    "categoriesAddDialogTitle" : MessageLookupByLibrary.simpleMessage("Categoryname"),
+    "categoriesDeleteDialogButtonCancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
+    "categoriesDeleteDialogButtonDelete" : MessageLookupByLibrary.simpleMessage("Delete"),
+    "categoriesDeleteDialogTitle" : MessageLookupByLibrary.simpleMessage("Do you really want to delete this category?"),
+    "categoriesFabTooltip" : MessageLookupByLibrary.simpleMessage("Add category"),
+    "categoriesTitle" : MessageLookupByLibrary.simpleMessage("Categories"),
     "dayNameFriday" : MessageLookupByLibrary.simpleMessage("Friday"),
     "dayNameMonday" : MessageLookupByLibrary.simpleMessage("Monday"),
     "dayNameSaturday" : MessageLookupByLibrary.simpleMessage("Saturday"),
@@ -34,11 +42,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "menuDetailsHeadline" : MessageLookupByLibrary.simpleMessage("Select day and dish"),
     "menuDetailsInputHint" : MessageLookupByLibrary.simpleMessage("What you wanna eat?"),
     "menuDetailsTitle" : MessageLookupByLibrary.simpleMessage("Details"),
-    "menuListFabTooltip" : MessageLookupByLibrary.simpleMessage("Add"),
+    "menuListFabTooltip" : MessageLookupByLibrary.simpleMessage("Add menu"),
     "menuListTitle" : MessageLookupByLibrary.simpleMessage("Menu List"),
     "navigationTabMenuListTitle" : MessageLookupByLibrary.simpleMessage("Menu List"),
+    "navigationTabSettingsTitle" : MessageLookupByLibrary.simpleMessage("Settings"),
     "navigationTabShoppingListTitle" : MessageLookupByLibrary.simpleMessage("Shopping List"),
-    "navigationTabUnknownTitle" : MessageLookupByLibrary.simpleMessage("TODO"),
+    "settingsSectionGeneralCategorySubtitle" : MessageLookupByLibrary.simpleMessage("Edit your categories"),
+    "settingsSectionGeneralCategoryTitle" : MessageLookupByLibrary.simpleMessage("Categories"),
+    "settingsSectionGeneralTitle" : MessageLookupByLibrary.simpleMessage("General"),
+    "settingsTitle" : MessageLookupByLibrary.simpleMessage("Settings"),
     "shoppingListTitle" : MessageLookupByLibrary.simpleMessage("Shopping List")
   };
 }

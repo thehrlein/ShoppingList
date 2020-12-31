@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2020-12-30T17:24:47.674762",
+  "@@last_modified": "2020-12-31T15:36:54.900008",
   "appName": "Einkaufsliste",
   "@appName": {
     "type": "Text",
@@ -52,8 +52,8 @@
     "type": "Text",
     "context": " navigation"
   },
-  "navigationTabUnknownTitle": "TODO",
-  "@navigationTabUnknownTitle": {
+  "navigationTabSettingsTitle": "Einstellungen",
+  "@navigationTabSettingsTitle": {
     "type": "Text",
     "context": " navigation"
   },
@@ -67,7 +67,7 @@
     "type": "Text",
     "context": " menu list"
   },
-  "menuListFabTooltip": "Hinzufügen",
+  "menuListFabTooltip": "Menu hinzufügen",
   "@menuListFabTooltip": {
     "type": "Text",
     "context": " menu list"
@@ -96,5 +96,65 @@
   "@menuDetailsInputHint": {
     "type": "Text",
     "context": " menu details"
+  },
+  "settingsTitle": "Einstellungen",
+  "@settingsTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionGeneralTitle": "Allgemein",
+  "@settingsSectionGeneralTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionGeneralCategoryTitle": "Kategorien",
+  "@settingsSectionGeneralCategoryTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionGeneralCategorySubtitle": "Kategorien bearbeiten",
+  "@settingsSectionGeneralCategorySubtitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "categoriesTitle": "Kategorien",
+  "@categoriesTitle": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesFabTooltip": "Kategorie hinzufügen",
+  "@categoriesFabTooltip": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesAddDialogTitle": "Kategoriename",
+  "@categoriesAddDialogTitle": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesAddDialogButtonCancel": "Abbrechen",
+  "@categoriesAddDialogButtonCancel": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesAddDialogButtonSave": "Speichern",
+  "@categoriesAddDialogButtonSave": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesDeleteDialogTitle": "Möchtest du diese Kategorie wirklich löschen?",
+  "@categoriesDeleteDialogTitle": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesDeleteDialogButtonCancel": "Abbrechen",
+  "@categoriesDeleteDialogButtonCancel": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesDeleteDialogButtonDelete": "Löschen",
+  "@categoriesDeleteDialogButtonDelete": {
+    "type": "Text",
+    "context": " categories "
   }
 }

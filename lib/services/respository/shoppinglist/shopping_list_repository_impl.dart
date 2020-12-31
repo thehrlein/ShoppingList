@@ -27,8 +27,8 @@ class ShoppingListRepositoryImpl implements ShoppingListRepository {
   }
 
   @override
-  Future<void> removeShoppingItem(ShoppingItem shoppingItem) {
-    return _firestoreDatasource.removeShoppingItem(shoppingItem);
+  Future<void> deleteShoppingItem(ShoppingItem shoppingItem) {
+    return _firestoreDatasource.deleteShoppingItem(shoppingItem);
   }
 
   @override

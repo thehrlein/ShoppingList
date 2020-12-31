@@ -22,6 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "appName" : MessageLookupByLibrary.simpleMessage("Einkaufsliste"),
+    "categoriesAddDialogButtonCancel" : MessageLookupByLibrary.simpleMessage("Abbrechen"),
+    "categoriesAddDialogButtonSave" : MessageLookupByLibrary.simpleMessage("Speichern"),
+    "categoriesAddDialogTitle" : MessageLookupByLibrary.simpleMessage("Kategoriename"),
+    "categoriesDeleteDialogButtonCancel" : MessageLookupByLibrary.simpleMessage("Abbrechen"),
+    "categoriesDeleteDialogButtonDelete" : MessageLookupByLibrary.simpleMessage("Löschen"),
+    "categoriesDeleteDialogTitle" : MessageLookupByLibrary.simpleMessage("Möchtest du diese Kategorie wirklich löschen?"),
+    "categoriesFabTooltip" : MessageLookupByLibrary.simpleMessage("Kategorie hinzufügen"),
+    "categoriesTitle" : MessageLookupByLibrary.simpleMessage("Kategorien"),
     "dayNameFriday" : MessageLookupByLibrary.simpleMessage("Freitag"),
     "dayNameMonday" : MessageLookupByLibrary.simpleMessage("Montag"),
     "dayNameSaturday" : MessageLookupByLibrary.simpleMessage("Samstag"),
@@ -34,11 +42,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "menuDetailsHeadline" : MessageLookupByLibrary.simpleMessage("Wähle Tag und Gericht"),
     "menuDetailsInputHint" : MessageLookupByLibrary.simpleMessage("Was möchtest du essen?"),
     "menuDetailsTitle" : MessageLookupByLibrary.simpleMessage("Details"),
-    "menuListFabTooltip" : MessageLookupByLibrary.simpleMessage("Hinzufügen"),
+    "menuListFabTooltip" : MessageLookupByLibrary.simpleMessage("Menu hinzufügen"),
     "menuListTitle" : MessageLookupByLibrary.simpleMessage("Essensplan"),
     "navigationTabMenuListTitle" : MessageLookupByLibrary.simpleMessage("Essensplan"),
+    "navigationTabSettingsTitle" : MessageLookupByLibrary.simpleMessage("Einstellungen"),
     "navigationTabShoppingListTitle" : MessageLookupByLibrary.simpleMessage("Einkaufsplan"),
-    "navigationTabUnknownTitle" : MessageLookupByLibrary.simpleMessage("TODO"),
+    "settingsSectionGeneralCategorySubtitle" : MessageLookupByLibrary.simpleMessage("Kategorien bearbeiten"),
+    "settingsSectionGeneralCategoryTitle" : MessageLookupByLibrary.simpleMessage("Kategorien"),
+    "settingsSectionGeneralTitle" : MessageLookupByLibrary.simpleMessage("Allgemein"),
+    "settingsTitle" : MessageLookupByLibrary.simpleMessage("Einstellungen"),
     "shoppingListTitle" : MessageLookupByLibrary.simpleMessage("Einkaufsliste")
   };
 }

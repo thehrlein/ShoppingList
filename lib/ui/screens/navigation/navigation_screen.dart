@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list/app/translations/output/l10n.dart';
 import 'package:shopping_list/ui/screens/menulist/menu_list_screen.dart';
+import 'package:shopping_list/ui/screens/settings/settings_list_screen.dart';
 import 'package:shopping_list/ui/screens/shoppinglist/shopping_list_screen.dart';
-import 'package:shopping_list/ui/screens/unknown/unknown_list_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class NavigationScreen extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreen> {
   int _currentIndex = 0;
-  final List<Widget> _tabs = [ShoppingListScreen(), MenuListScreen(), UnknownListScreen()];
+  final List<Widget> _tabs = [ShoppingListScreen(), MenuListScreen(), SettingsListScreen()];
 
   void onTabTapped(int index) {
     setState(() {
@@ -44,7 +44,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              label: S.of(context).navigationTabUnknownTitle,
+              label: S.of(context).navigationTabSettingsTitle,
             ),
           ],
           onTap: (index) => onTabTapped(index),

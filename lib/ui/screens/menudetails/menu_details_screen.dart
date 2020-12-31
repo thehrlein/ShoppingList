@@ -31,6 +31,7 @@ class _MenuDetailsState extends State<MenuDetailsScreen> {
         }
       });
     });
+    super.initState();
   }
 
   void _onSave() {
@@ -84,7 +85,7 @@ class _MenuDetailsState extends State<MenuDetailsScreen> {
               height: Spaces.space_6,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(Spaces.space_2),
               child: _DayDropdown(
                 onValueChange: (MenuPlanDay day) {
                   _selectedDay = day;

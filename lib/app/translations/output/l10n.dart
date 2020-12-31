@@ -135,11 +135,11 @@ class S {
     );
   }
 
-  /// `TODO`
-  String get navigationTabUnknownTitle {
+  /// `Einstellungen`
+  String get navigationTabSettingsTitle {
     return Intl.message(
-      'TODO',
-      name: 'navigationTabUnknownTitle',
+      'Einstellungen',
+      name: 'navigationTabSettingsTitle',
       desc: '',
       args: [],
     );
@@ -165,10 +165,10 @@ class S {
     );
   }
 
-  /// `Hinzufügen`
+  /// `Menu hinzufügen`
   String get menuListFabTooltip {
     return Intl.message(
-      'Hinzufügen',
+      'Menu hinzufügen',
       name: 'menuListFabTooltip',
       desc: '',
       args: [],
@@ -220,6 +220,126 @@ class S {
     return Intl.message(
       'Was möchtest du essen?',
       name: 'menuDetailsInputHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Einstellungen`
+  String get settingsTitle {
+    return Intl.message(
+      'Einstellungen',
+      name: 'settingsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Allgemein`
+  String get settingsSectionGeneralTitle {
+    return Intl.message(
+      'Allgemein',
+      name: 'settingsSectionGeneralTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kategorien`
+  String get settingsSectionGeneralCategoryTitle {
+    return Intl.message(
+      'Kategorien',
+      name: 'settingsSectionGeneralCategoryTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kategorien bearbeiten`
+  String get settingsSectionGeneralCategorySubtitle {
+    return Intl.message(
+      'Kategorien bearbeiten',
+      name: 'settingsSectionGeneralCategorySubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kategorien`
+  String get categoriesTitle {
+    return Intl.message(
+      'Kategorien',
+      name: 'categoriesTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kategorie hinzufügen`
+  String get categoriesFabTooltip {
+    return Intl.message(
+      'Kategorie hinzufügen',
+      name: 'categoriesFabTooltip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kategoriename`
+  String get categoriesAddDialogTitle {
+    return Intl.message(
+      'Kategoriename',
+      name: 'categoriesAddDialogTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abbrechen`
+  String get categoriesAddDialogButtonCancel {
+    return Intl.message(
+      'Abbrechen',
+      name: 'categoriesAddDialogButtonCancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Speichern`
+  String get categoriesAddDialogButtonSave {
+    return Intl.message(
+      'Speichern',
+      name: 'categoriesAddDialogButtonSave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Möchtest du diese Kategorie wirklich löschen?`
+  String get categoriesDeleteDialogTitle {
+    return Intl.message(
+      'Möchtest du diese Kategorie wirklich löschen?',
+      name: 'categoriesDeleteDialogTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abbrechen`
+  String get categoriesDeleteDialogButtonCancel {
+    return Intl.message(
+      'Abbrechen',
+      name: 'categoriesDeleteDialogButtonCancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Löschen`
+  String get categoriesDeleteDialogButtonDelete {
+    return Intl.message(
+      'Löschen',
+      name: 'categoriesDeleteDialogButtonDelete',
       desc: '',
       args: [],
     );

@@ -4,7 +4,7 @@ mixin Constants {
   // collections
   static const String COLLECTION_MENU = "menu";
   static const String COLLECTION_SHOPPING_LIST = "shoppinglist";
-  static const String COLLECTION_CATEGORY = "cagetory";
+  static const String COLLECTION_CATEGORIES = "categories";
 
   // subcollections
   static const String SUB_COLLECTION_ITEMS = "items";

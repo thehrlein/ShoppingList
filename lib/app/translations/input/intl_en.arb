@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2020-12-30T17:24:47.674762",
+  "@@last_modified": "2020-12-31T15:36:54.900008",
   "appName": "Shopping List",
   "@appName": {
     "type": "Text",
@@ -52,8 +52,8 @@
     "type": "Text",
     "context": " navigation"
   },
-  "navigationTabUnknownTitle": "TODO",
-  "@navigationTabUnknownTitle": {
+  "navigationTabSettingsTitle": "Settings",
+  "@navigationTabSettingsTitle": {
     "type": "Text",
     "context": " navigation"
   },
@@ -67,7 +67,7 @@
     "type": "Text",
     "context": " menu list"
   },
-  "menuListFabTooltip": "Add",
+  "menuListFabTooltip": "Add menu",
   "@menuListFabTooltip": {
     "type": "Text",
     "context": " menu list"
@@ -96,5 +96,65 @@
   "@menuDetailsInputHint": {
     "type": "Text",
     "context": " menu details"
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionGeneralTitle": "General",
+  "@settingsSectionGeneralTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionGeneralCategoryTitle": "Categories",
+  "@settingsSectionGeneralCategoryTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionGeneralCategorySubtitle": "Edit your categories",
+  "@settingsSectionGeneralCategorySubtitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "categoriesTitle": "Categories",
+  "@categoriesTitle": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesFabTooltip": "Add category",
+  "@categoriesFabTooltip": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesAddDialogTitle": "Categoryname",
+  "@categoriesAddDialogTitle": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesAddDialogButtonCancel": "Cancel",
+  "@categoriesAddDialogButtonCancel": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesAddDialogButtonSave": "Save",
+  "@categoriesAddDialogButtonSave": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesDeleteDialogTitle": "Do you really want to delete this category?",
+  "@categoriesDeleteDialogTitle": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesDeleteDialogButtonCancel": "Cancel",
+  "@categoriesDeleteDialogButtonCancel": {
+    "type": "Text",
+    "context": " categories "
+  },
+  "categoriesDeleteDialogButtonDelete": "Delete",
+  "@categoriesDeleteDialogButtonDelete": {
+    "type": "Text",
+    "context": " categories "
   }
 }

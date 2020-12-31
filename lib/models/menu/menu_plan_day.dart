@@ -14,8 +14,6 @@ enum MenuPlanDay {
 extension MenuPlanDayExtension on MenuPlanDay {
   String getLocalizedDay(BuildContext context) {
     switch (this) {
-      case MenuPlanDay.monday:
-        return S.of(context).dayNameMonday;
       case MenuPlanDay.tuesday:
         return S.of(context).dayNameTuesday;
       case MenuPlanDay.wednesday:
@@ -28,12 +26,16 @@ extension MenuPlanDayExtension on MenuPlanDay {
         return S.of(context).dayNameSaturday;
       case MenuPlanDay.sunday:
         return S.of(context).dayNameSunday;
+      case MenuPlanDay.monday:
+      default:
+        return S.of(context).dayNameMonday;
     }
   }
 }
 
 extension MenuPlanDayStringExtension on String {
   MenuPlanDay getMenuPlanDay() {
-    return MenuPlanDay.values.firstWhere((element) => element.toString() == this);
+    return MenuPlanDay.values
+        .firstWhere((element) => element.toString() == this);
   }
 }

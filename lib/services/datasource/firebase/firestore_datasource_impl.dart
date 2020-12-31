@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shopping_list/app/utils/constants.dart';
+import 'package:shopping_list/models/categories/Category.dart';
 import 'package:shopping_list/models/menu/menu_plan.dart';
 import 'package:shopping_list/models/menu/menu_plan_day.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
@@ -20,15 +21,19 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
       StreamController.broadcast();
   final StreamController<ShoppingList> _shoppingListController =
       StreamController.broadcast();
+  final StreamController<Set<Category>> _categoriesController =
+      StreamController.broadcast();
 
   Stream get menuStream => _menuPlanController.stream;
 
   Stream get shoppingStream => _shoppingListController.stream;
 
+  Stream get categoriesStream => _categoriesController.stream;
+
   FirestoreDatasourceImpl() {
     menuRef = firestore.collection(Constants.COLLECTION_MENU);
     shoppingListRef = firestore.collection(Constants.COLLECTION_SHOPPING_LIST);
-    categoryRef = firestore.collection(Constants.COLLECTION_CATEGORY);
+    categoryRef = firestore.collection(Constants.COLLECTION_CATEGORIES);
   }
 
   @override
@@ -140,8 +145,38 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   }
 
   @override
-  Future<void> removeShoppingItem(ShoppingItem shoppingItem) {
+  Future<void> deleteShoppingItem(ShoppingItem shoppingItem) {
     // TODO: implement removeShoppingItem
     throw UnimplementedError();
+  }
+
+  @override
+  Stream<Set<Category>> getAndListenToCategories() {
+    categoryRef.snapshots().listen((event) {
+      List<Category> categories = List();
+      event.docs.forEach((element) {
+        Map<String, dynamic> map = element.data();
+        String name = map[Constants.FIELD_NAME];
+        categories.add(Category(name: name));
+      });
+      categories
+          .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      _categoriesController.add(categories.toSet());
+    });
+    return categoriesStream;
+  }
+
+  @override
+  Future<void> saveCategory(Category category) {
+    return categoryRef.add({Constants.FIELD_NAME: category.name});
+  }
+
+  @override
+  Future<void> deleteCategory(Category category) async {
+    var querySnapshot = await categoryRef.where(Constants.FIELD_NAME, isEqualTo: category.name).get();
+    querySnapshot.docs.forEach((element) {
+      element.reference.delete();
+    });
+    return Future.value();
   }
 }

@@ -7,6 +7,8 @@ import 'package:shopping_list/models/shopping/shopping_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list.dart';
 import 'package:shopping_list/ui/screens/shoppinglist/cubit/shopping_list_cubit.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:shopping_list/ui/widgets/loading.dart';
+import 'package:shopping_list/ui/widgets/small_divider.dart';
 
 class ShoppingListScreen extends StatefulWidget {
   @override
@@ -27,7 +29,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
               padding: const EdgeInsets.all(Spaces.space_4),
               child: RefreshIndicator(
                 child: state.when(
-                  loading: _showLoading,
+                  loading: () => SimpleLoadingIndicator(),
                   loaded: (list) => Column(
                     children: [
                       TypeAheadField(
@@ -84,9 +86,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
           ShoppingItem item = shoppingList.items[index];
           return _createShoppingItem(item);
         },
-        separatorBuilder: (context, index) => Divider(
-          color: Theme.of(context).accentColor,
-        ),
+        separatorBuilder: (context, index) => SmallDivider(),
         itemCount: shoppingList.items.length,
       ),
     );
@@ -96,7 +96,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     return InkWell(
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(Spaces.space_4),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -112,12 +112,6 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _showLoading() {
-    return Center(
-      child: CircularProgressIndicator(),
     );
   }
 }

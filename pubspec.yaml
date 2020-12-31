@@ -55,6 +55,8 @@ dependencies:
   cloud_firestore: ^0.14.4
   # autocomplete
   flutter_typeahead: ^1.9.1
+  # settings
+  settings_ui: ^0.5.0
 
 dev_dependencies:
   flutter_test:
