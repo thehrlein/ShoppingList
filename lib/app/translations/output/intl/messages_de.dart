@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "menuListTitle" : MessageLookupByLibrary.simpleMessage("Essensplan"),
     "navigationTabMenuListTitle" : MessageLookupByLibrary.simpleMessage("Essensplan"),
     "navigationTabShoppingListTitle" : MessageLookupByLibrary.simpleMessage("Einkaufsplan"),
-    "navigationTabUnknownTitle" : MessageLookupByLibrary.simpleMessage("TODO")
+    "navigationTabUnknownTitle" : MessageLookupByLibrary.simpleMessage("TODO"),
+    "shoppingListTitle" : MessageLookupByLibrary.simpleMessage("Einkaufsliste")
   };
 }

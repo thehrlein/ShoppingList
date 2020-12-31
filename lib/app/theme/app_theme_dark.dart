@@ -8,7 +8,6 @@ ThemeData darkTheme = ThemeData(
   accentColor: Colors.white,
   accentIconTheme: IconThemeData(color: Colors.white),
   dividerColor: Colors.black12,
-  scaffoldBackgroundColor: Colors.black,
   fontFamily: "JetBrainsMono",
   buttonTheme: ButtonThemeData(
     buttonColor: Colors.white,

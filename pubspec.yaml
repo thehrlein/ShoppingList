@@ -52,7 +52,9 @@ dependencies:
   firebase_core: 0.5.3
   firebase_analytics: ^6.3.0
   firebase_crashlytics: ^0.2.4
-  cloud_firestore: "^0.14.4"
+  cloud_firestore: ^0.14.4
+  # autocomplete
+  flutter_typeahead: ^1.9.1
 
 dev_dependencies:
   flutter_test:

@@ -3,7 +3,7 @@ import 'package:shopping_list/models/menu/menu_plan.dart';
 import 'package:shopping_list/models/menu/menu_plan_day.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
 import 'package:shopping_list/services/datasource/firebase/firestore_datasource.dart';
-import 'package:shopping_list/services/respository/menu_repository.dart';
+import 'package:shopping_list/services/respository/menu/menu_repository.dart';
 
 @Singleton(as: MenuRepository)
 class MenuRepositoryImpl implements MenuRepository {

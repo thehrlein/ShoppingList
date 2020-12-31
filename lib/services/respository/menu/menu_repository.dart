@@ -6,6 +6,5 @@ abstract class MenuRepository {
   Future<MenuPlan> getMenuPlan();
   Stream<MenuPlan> getAndListenToMenuPlan();
   Future<void> saveDish(MenuPlanItem menuPlanItem);
-
   Future<void> deleteDish(MenuPlanDay day);
 }

@@ -145,6 +145,16 @@ class S {
     );
   }
 
+  /// `Einkaufsliste`
+  String get shoppingListTitle {
+    return Intl.message(
+      'Einkaufsliste',
+      name: 'shoppingListTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Essensplan`
   String get menuListTitle {
     return Intl.message(

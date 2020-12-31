@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_list/app/navigation/routes.dart';
 import 'package:shopping_list/app/translations/output/l10n.dart';
 import 'package:shopping_list/app/utils/auto_bloc_provider.dart';
-import 'package:shopping_list/app/utils/dimens.dart';
 import 'package:shopping_list/models/menu/menu_plan.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
 import 'package:shopping_list/ui/screens/menulist/cubit/menu_list_cubit.dart';
@@ -71,12 +70,8 @@ class _MenuListScreenState extends State<MenuListScreen> {
   Widget _createMenuPlanItem(MenuPlanItem item) {
     return InkWell(
       child: Container(
-        decoration: BoxDecoration(
-          boxShadow: kElevationToShadow[1],
-          borderRadius: BorderRadius.circular(Sizes.border_radius_medium),
-        ),
         child: Padding(
-          padding: EdgeInsets.all(Spaces.space_4),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

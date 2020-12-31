@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2020-12-30T16:02:36.786411",
+  "@@last_modified": "2020-12-30T17:24:47.674762",
   "appName": "Shopping List",
   "@appName": {
     "type": "Text",
@@ -56,6 +56,11 @@
   "@navigationTabUnknownTitle": {
     "type": "Text",
     "context": " navigation"
+  },
+  "shoppingListTitle": "Shopping List",
+  "@shoppingListTitle": {
+    "type": "Text",
+    "context": " shopping list"
   },
   "menuListTitle": "Menu List",
   "@menuListTitle": {

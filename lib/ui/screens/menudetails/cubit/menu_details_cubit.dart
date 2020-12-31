@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shopping_list/models/menu/menu_plan_day.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
-import 'package:shopping_list/services/respository/menu_repository.dart';
+import 'package:shopping_list/services/respository/menu/menu_repository.dart';
 
 part 'menu_details_cubit.freezed.dart';
 
