@@ -6,7 +6,7 @@ import 'package:shopping_list/models/categories/Category.dart';
 import 'package:shopping_list/models/menu/menu_plan.dart';
 import 'package:shopping_list/models/menu/menu_plan_day.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
-import 'package:shopping_list/models/shopping/shopping_item.dart';
+import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list.dart';
 import 'package:shopping_list/services/datasource/firebase/firestore_datasource.dart';
 
@@ -19,7 +19,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
 
   final StreamController<MenuPlan> _menuPlanController =
       StreamController.broadcast();
-  final StreamController<ShoppingList> _shoppingListController =
+  final StreamController<List<ShoppingListValueItem>> _shoppingListController =
       StreamController.broadcast();
   final StreamController<Set<Category>> _categoriesController =
       StreamController.broadcast();
@@ -79,8 +79,8 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   }
 
   @override
-  Future<List<ShoppingItem>> getShoppingSuggestions(String query) async {
-    List<ShoppingItem> suggestions = List();
+  Future<List<ShoppingListValueItem>> getShoppingSuggestions(String query) async {
+    List<ShoppingListValueItem> suggestions = List();
     QuerySnapshot querySnapshot = await shoppingListRef
         .doc(Constants.DOCUMENT_ALL)
         .collection(Constants.SUB_COLLECTION_ITEMS)
@@ -90,15 +90,15 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
       Map<String, dynamic> map = element.data();
       String name = map[Constants.FIELD_NAME];
       String category = map[Constants.FIELD_CATEGORY] ?? "Allgemein";
-      suggestions.add(ShoppingItem(category: category, name: name));
+      suggestions.add(ShoppingListValueItem(category: category, name: name));
     });
 
     return suggestions;
   }
 
   @override
-  Future<ShoppingList> getShoppingList() async {
-    List<ShoppingItem> items = List();
+  Future<List<ShoppingListValueItem>> getShoppingList() async {
+    List<ShoppingListValueItem> items = List();
     QuerySnapshot querySnapshot = await shoppingListRef
         .doc(Constants.DOCUMENT_ACTIVE)
         .collection(Constants.SUB_COLLECTION_ITEMS)
@@ -108,33 +108,33 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
       Map<String, dynamic> map = element.data();
       String name = map[Constants.FIELD_NAME];
       String category = map[Constants.FIELD_CATEGORY] ?? "Allgemein";
-      items.add(ShoppingItem(category: category, name: name));
+      items.add(ShoppingListValueItem(category: category, name: name));
     });
 
-    return ShoppingList(items: items);
+    return items;
   }
 
   @override
-  Stream<ShoppingList> getAndListenToShoppingList() {
+  Stream<List<ShoppingListValueItem>> getAndListenToShoppingList() {
     shoppingListRef
         .doc(Constants.DOCUMENT_ACTIVE)
         .collection(Constants.SUB_COLLECTION_ITEMS)
         .snapshots()
         .listen((event) {
-      List<ShoppingItem> items = List();
+      List<ShoppingListValueItem> items = List();
       event.docs.forEach((element) {
         Map<String, dynamic> map = element.data();
         String name = map[Constants.FIELD_NAME];
         String category = map[Constants.FIELD_CATEGORY] ?? "Allgemein";
-        items.add(ShoppingItem(category: category, name: name));
+        items.add(ShoppingListValueItem(category: category, name: name));
       });
-      _shoppingListController.add(ShoppingList(items: items));
+      _shoppingListController.add(items);
     });
     return shoppingStream;
   }
 
   @override
-  Future<void> saveShoppingItem(ShoppingItem shoppingItem) {
+  Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem) {
     return shoppingListRef
         .doc(Constants.DOCUMENT_ACTIVE)
         .collection(Constants.SUB_COLLECTION_ITEMS)
@@ -145,9 +145,15 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   }
 
   @override
-  Future<void> deleteShoppingItem(ShoppingItem shoppingItem) {
-    // TODO: implement removeShoppingItem
-    throw UnimplementedError();
+  Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem) async {
+    var querySnapshot = await shoppingListRef
+        .doc(Constants.DOCUMENT_ACTIVE)
+        .collection(Constants.SUB_COLLECTION_ITEMS)
+        .where(Constants.FIELD_NAME, isEqualTo: shoppingItem.name).get();
+    querySnapshot.docs.forEach((element) {
+      element.reference.delete();
+    });
+    return Future.value();
   }
 
   @override

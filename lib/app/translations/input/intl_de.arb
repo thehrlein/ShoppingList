@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2020-12-31T15:36:54.900008",
+  "@@last_modified": "2021-01-01T15:58:31.560298",
   "appName": "Einkaufsliste",
   "@appName": {
     "type": "Text",
@@ -61,6 +61,31 @@
   "@shoppingListTitle": {
     "type": "Text",
     "context": " shopping list"
+  },
+  "shoppingItemDetailsHeadline": "Du kannst den Namen sowie die Kategorie ändern",
+  "@shoppingItemDetailsHeadline": {
+    "type": "Text",
+    "context": " shopping item details"
+  },
+  "shoppingItemDetailsItemInputHint": "Artikelname",
+  "@shoppingItemDetailsItemInputHint": {
+    "type": "Text",
+    "context": " shopping item details"
+  },
+  "shoppingItemDetailsButtonSave": "Speichern",
+  "@shoppingItemDetailsButtonSave": {
+    "type": "Text",
+    "context": " shopping item details"
+  },
+  "shoppingItemDetailsButtonDelete": "Löschen",
+  "@shoppingItemDetailsButtonDelete": {
+    "type": "Text",
+    "context": " shopping item details"
+  },
+  "shoppingItemDetailsButtonEditCategories": "Kategorien bearbeiten",
+  "@shoppingItemDetailsButtonEditCategories": {
+    "type": "Text",
+    "context": " shopping item details"
   },
   "menuListTitle": "Essensplan",
   "@menuListTitle": {

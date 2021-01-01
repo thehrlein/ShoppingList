@@ -155,6 +155,56 @@ class S {
     );
   }
 
+  /// `Du kannst den Namen sowie die Kategorie ändern`
+  String get shoppingItemDetailsHeadline {
+    return Intl.message(
+      'Du kannst den Namen sowie die Kategorie ändern',
+      name: 'shoppingItemDetailsHeadline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Artikelname`
+  String get shoppingItemDetailsItemInputHint {
+    return Intl.message(
+      'Artikelname',
+      name: 'shoppingItemDetailsItemInputHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Speichern`
+  String get shoppingItemDetailsButtonSave {
+    return Intl.message(
+      'Speichern',
+      name: 'shoppingItemDetailsButtonSave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Löschen`
+  String get shoppingItemDetailsButtonDelete {
+    return Intl.message(
+      'Löschen',
+      name: 'shoppingItemDetailsButtonDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kategorien bearbeiten`
+  String get shoppingItemDetailsButtonEditCategories {
+    return Intl.message(
+      'Kategorien bearbeiten',
+      name: 'shoppingItemDetailsButtonEditCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Essensplan`
   String get menuListTitle {
     return Intl.message(

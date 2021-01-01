@@ -18,10 +18,6 @@ class MenuListScreen extends StatefulWidget {
 
 class _MenuListScreenState extends State<MenuListScreen> {
 
-  void _onFabClicked() {
-    Routes.openMenuDetails(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     return AutoBlocProvider<MenuListCubit>(
@@ -39,7 +35,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
               onRefresh: () => context.read<MenuListCubit>().refreshMenuList(),
             ),
             floatingActionButton: FloatingActionButton(
-              onPressed: _onFabClicked,
+              onPressed: () => Routes.openMenuDetails(context),
               tooltip: S.of(context).menuListFabTooltip,
               child: const Icon(Icons.add),
             ),

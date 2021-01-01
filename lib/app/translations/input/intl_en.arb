@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2020-12-31T15:36:54.900008",
+  "@@last_modified": "2021-01-01T15:58:31.560298",
   "appName": "Shopping List",
   "@appName": {
     "type": "Text",
@@ -61,6 +61,31 @@
   "@shoppingListTitle": {
     "type": "Text",
     "context": " shopping list"
+  },
+  "shoppingItemDetailsHeadline": "You can change name and category if that item here",
+  "@shoppingItemDetailsHeadline": {
+    "type": "Text",
+    "context": " shopping item details"
+  },
+  "shoppingItemDetailsItemInputHint": "Item name",
+  "@shoppingItemDetailsItemInputHint": {
+    "type": "Text",
+    "context": " shopping item details"
+  },
+  "shoppingItemDetailsButtonSave": "Save",
+  "@shoppingItemDetailsButtonSave": {
+    "type": "Text",
+    "context": " shopping item details"
+  },
+  "shoppingItemDetailsButtonDelete": "Delete",
+  "@shoppingItemDetailsButtonDelete": {
+    "type": "Text",
+    "context": " shopping item details"
+  },
+  "shoppingItemDetailsButtonEditCategories": "Edit categories",
+  "@shoppingItemDetailsButtonEditCategories": {
+    "type": "Text",
+    "context": " shopping item details"
   },
   "menuListTitle": "Menu List",
   "@menuListTitle": {

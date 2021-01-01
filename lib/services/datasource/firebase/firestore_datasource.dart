@@ -2,17 +2,17 @@ import 'package:shopping_list/models/categories/Category.dart';
 import 'package:shopping_list/models/menu/menu_plan.dart';
 import 'package:shopping_list/models/menu/menu_plan_day.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
-import 'package:shopping_list/models/shopping/shopping_item.dart';
+import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list.dart';
 
 abstract class FirestoreDatasource {
 
   /// shopping list
-  Future<List<ShoppingItem>> getShoppingSuggestions(String query);
-  Future<ShoppingList> getShoppingList();
-  Stream<ShoppingList> getAndListenToShoppingList();
-  Future<void> saveShoppingItem(ShoppingItem shoppingItem);
-  Future<void> deleteShoppingItem(ShoppingItem shoppingItem);
+  Future<List<ShoppingListValueItem>> getShoppingSuggestions(String query);
+  Future<List<ShoppingListValueItem>> getShoppingList();
+  Stream<List<ShoppingListValueItem>> getAndListenToShoppingList();
+  Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem);
+  Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem);
 
   /// menu
   Future<MenuPlan> getMenuPlan();

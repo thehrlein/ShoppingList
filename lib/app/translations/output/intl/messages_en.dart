@@ -51,6 +51,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "settingsSectionGeneralCategoryTitle" : MessageLookupByLibrary.simpleMessage("Categories"),
     "settingsSectionGeneralTitle" : MessageLookupByLibrary.simpleMessage("General"),
     "settingsTitle" : MessageLookupByLibrary.simpleMessage("Settings"),
+    "shoppingItemDetailsButtonDelete" : MessageLookupByLibrary.simpleMessage("Delete"),
+    "shoppingItemDetailsButtonEditCategories" : MessageLookupByLibrary.simpleMessage("Edit categories"),
+    "shoppingItemDetailsButtonSave" : MessageLookupByLibrary.simpleMessage("Save"),
+    "shoppingItemDetailsHeadline" : MessageLookupByLibrary.simpleMessage("You can change name and category if that item here"),
+    "shoppingItemDetailsItemInputHint" : MessageLookupByLibrary.simpleMessage("Item name"),
     "shoppingListTitle" : MessageLookupByLibrary.simpleMessage("Shopping List")
   };
 }

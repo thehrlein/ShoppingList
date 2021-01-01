@@ -17,6 +17,7 @@ import '../../ui/screens/menulist/cubit/menu_list_cubit.dart';
 import '../../services/respository/menu/menu_repository.dart';
 import '../../services/respository/menu/menu_repository_impl.dart';
 import '../navigation/navigation_manager.dart';
+import '../../ui/screens/shoppingitemdetails/cubit/shopping_item_details_cubit.dart';
 import '../../ui/screens/shoppinglist/cubit/shopping_list_cubit.dart';
 import '../../services/respository/shoppinglist/shopping_list_repository.dart';
 import '../../services/respository/shoppinglist/shopping_list_repository_impl.dart';
@@ -34,6 +35,8 @@ GetIt $initGetIt(
   gh.factory<SplashCubit>(() => SplashCubit());
   gh.factory<MenuDetailsCubit>(() => MenuDetailsCubit(get<MenuRepository>()));
   gh.factory<MenuListCubit>(() => MenuListCubit(get<MenuRepository>()));
+  gh.factory<ShoppingItemDetailsCubit>(() => ShoppingItemDetailsCubit(
+      get<CategoriesRepository>(), get<ShoppingListRepository>()));
   gh.factory<ShoppingListCubit>(
       () => ShoppingListCubit(get<ShoppingListRepository>()));
   gh.factory<CategoriesCubit>(

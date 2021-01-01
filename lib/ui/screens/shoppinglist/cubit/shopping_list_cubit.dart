@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shopping_list/models/shopping/shopping_item.dart';
+import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list.dart';
 import 'package:shopping_list/services/respository/shoppinglist/shopping_list_repository.dart';
 
@@ -25,20 +25,20 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
         .then((value) => emit(ShoppingListLoaded(shoppingList: value)));
   }
 
-  Future<List<ShoppingItem>> getQuerySuggestions(String query) {
+  Future<List<ShoppingListValueItem>> getQuerySuggestions(String query) {
     if (query.isEmpty) return Future.value(List.empty());
     return _shoppingListRepository.getSuggestions(query);
   }
 
-  void onSuggestionSelected(ShoppingItem shoppingItem) {
+  void onSuggestionSelected(ShoppingListValueItem shoppingItem) {
     saveShoppingItem(shoppingItem);
   }
 
-  Future<void> saveShoppingItem(ShoppingItem shoppingItem) {
+  Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem) {
     return _shoppingListRepository.saveShoppingItem(shoppingItem);
   }
 
-  Future<void> deleteShoppingItem(ShoppingItem shoppingItem) {
+  Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem) {
     return _shoppingListRepository.deleteShoppingItem(shoppingItem);
   }
 }
