@@ -18,4 +18,6 @@ mixin Constants {
   static const String FIELD_NAME = "name";
   static const String FIELD_CATEGORY = "category";
 
+  /// categories
+  static const String DEFAULT_CATEGORY = "Allgemein";
 }

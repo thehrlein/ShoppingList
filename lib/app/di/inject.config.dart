@@ -10,6 +10,7 @@ import 'package:injectable/injectable.dart';
 import '../../ui/screens/categories/cubit/categories_cubit.dart';
 import '../../services/respository/categories/categories_repository.dart';
 import '../../services/respository/categories/categories_repository_impl.dart';
+import '../../ui/screens/editshoppingitems/cubit/edit_shopping_items_cubit.dart';
 import '../../services/datasource/firebase/firestore_datasource.dart';
 import '../../services/datasource/firebase/firestore_datasource_impl.dart';
 import '../../ui/screens/menudetails/cubit/menu_details_cubit.dart';
@@ -33,6 +34,8 @@ GetIt $initGetIt(
 }) {
   final gh = GetItHelper(get, environment, environmentFilter);
   gh.factory<SplashCubit>(() => SplashCubit());
+  gh.factory<EditShoppingItemsCubit>(
+      () => EditShoppingItemsCubit(get<ShoppingListRepository>()));
   gh.factory<MenuDetailsCubit>(() => MenuDetailsCubit(get<MenuRepository>()));
   gh.factory<MenuListCubit>(() => MenuListCubit(get<MenuRepository>()));
   gh.factory<ShoppingItemDetailsCubit>(() => ShoppingItemDetailsCubit(

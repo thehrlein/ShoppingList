@@ -9,8 +9,9 @@ abstract class FirestoreDatasource {
 
   /// shopping list
   Future<List<ShoppingListValueItem>> getShoppingSuggestions(String query);
-  Future<List<ShoppingListValueItem>> getShoppingList();
-  Stream<List<ShoppingListValueItem>> getAndListenToShoppingList();
+  Future<List<ShoppingListValueItem>> getShoppingList(String document);
+  Stream<List<ShoppingListValueItem>> getAndListenToShoppingList(String document);
+  Future<void> cancelStreamSubscription();
   Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem);
   Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem);
 
@@ -21,6 +22,7 @@ abstract class FirestoreDatasource {
   Future<void> deleteDish(MenuPlanDay day);
 
   /// categories
+  Future<List<Category>> getCategories();
   Stream<Set<Category>> getAndListenToCategories();
   Future<void> saveCategory(Category category);
   Future<void> deleteCategory(Category category);

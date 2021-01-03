@@ -10,9 +10,6 @@ class SettingsListScreen extends StatefulWidget {
 }
 
 class _SettingsListScreenState extends State<SettingsListScreen> {
-  void _onEditCategoriesClicked(BuildContext context) {
-    Routes.openCategories(context);
-  }
 
   bool isEnabled = true;
 
@@ -36,7 +33,15 @@ class _SettingsListScreenState extends State<SettingsListScreen> {
                   subtitle: S.of(context).settingsSectionGeneralCategorySubtitle,
                   subtitleMaxLines: 2,
                   leading: Icon(Icons.category),
-                  onPressed: _onEditCategoriesClicked,
+                  onPressed: (context) => Routes.openCategories(context),
+                ),
+                SettingsTile(
+                  title: S.of(context).settingsSectionGeneralAllItemsTitle,
+                  titleMaxLines: 1,
+                  subtitle: S.of(context).settingsSectionGeneralAllItemsSubtitle,
+                  subtitleMaxLines: 2,
+                  leading: Icon(Icons.save),
+                  onPressed: (context) => Routes.openAllShoppingItems(context),
                 ),
               ],
             ),

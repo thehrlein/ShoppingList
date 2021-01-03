@@ -18,10 +18,10 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     });
   }
 
-  Future<void> refreshMenuList() {
-  //   return _menuRepository
-  //       .getMenuPlan()
-  //       .then((value) => emit(MenuLoaded(menuPlan: value)));
+  Future<void> refreshCategories() {
+    return _categoriesRepository
+        .getCategories()
+        .then((value) => emit(CategoriesLoaded(categories: value)));
   }
 
   Future<void> saveCategory(Category category) {

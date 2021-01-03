@@ -315,6 +315,26 @@ class S {
     );
   }
 
+  /// `Artikel`
+  String get settingsSectionGeneralAllItemsTitle {
+    return Intl.message(
+      'Artikel',
+      name: 'settingsSectionGeneralAllItemsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Artikel bearbeiten`
+  String get settingsSectionGeneralAllItemsSubtitle {
+    return Intl.message(
+      'Artikel bearbeiten',
+      name: 'settingsSectionGeneralAllItemsSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Kategorien`
   String get categoriesTitle {
     return Intl.message(
@@ -390,6 +410,16 @@ class S {
     return Intl.message(
       'Löschen',
       name: 'categoriesDeleteDialogButtonDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Alle Artikel`
+  String get shoppingItemsTitle {
+    return Intl.message(
+      'Alle Artikel',
+      name: 'shoppingItemsTitle',
       desc: '',
       args: [],
     );

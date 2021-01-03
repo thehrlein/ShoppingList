@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2021-01-01T15:58:31.560298",
+  "@@last_modified": "2021-01-03T14:36:02.905599",
   "appName": "Einkaufsliste",
   "@appName": {
     "type": "Text",
@@ -142,6 +142,16 @@
     "type": "Text",
     "context": " settings "
   },
+  "settingsSectionGeneralAllItemsTitle": "Artikel",
+  "@settingsSectionGeneralAllItemsTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionGeneralAllItemsSubtitle": "Artikel bearbeiten",
+  "@settingsSectionGeneralAllItemsSubtitle": {
+    "type": "Text",
+    "context": " settings "
+  },
   "categoriesTitle": "Kategorien",
   "@categoriesTitle": {
     "type": "Text",
@@ -181,5 +191,10 @@
   "@categoriesDeleteDialogButtonDelete": {
     "type": "Text",
     "context": " categories "
+  },
+  "shoppingItemsTitle": "Alle Artikel",
+  "@shoppingItemsTitle": {
+    "type": "Text",
+    "context": " shopping items "
   }
 }

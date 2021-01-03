@@ -13,6 +13,11 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   CategoriesRepositoryImpl(this._firestoreDatasource);
 
   @override
+  Future<List<Category>> getCategories() {
+    return _firestoreDatasource.getCategories();
+  }
+
+  @override
   Stream<List<Category>> getAndListenToCategories() {
     return _firestoreDatasource.getAndListenToCategories().map((event) => event.toList());
   }

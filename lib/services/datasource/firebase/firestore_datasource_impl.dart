@@ -7,7 +7,6 @@ import 'package:shopping_list/models/menu/menu_plan.dart';
 import 'package:shopping_list/models/menu/menu_plan_day.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
-import 'package:shopping_list/models/shopping/shopping_list.dart';
 import 'package:shopping_list/services/datasource/firebase/firestore_datasource.dart';
 
 @Singleton(as: FirestoreDatasource)
@@ -30,10 +29,123 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
 
   Stream get categoriesStream => _categoriesController.stream;
 
+  StreamSubscription _activeShoppingListSubscription;
+
   FirestoreDatasourceImpl() {
     menuRef = firestore.collection(Constants.COLLECTION_MENU);
     shoppingListRef = firestore.collection(Constants.COLLECTION_SHOPPING_LIST);
     categoryRef = firestore.collection(Constants.COLLECTION_CATEGORIES);
+  }
+
+  @override
+  Future<List<ShoppingListValueItem>> getShoppingSuggestions(
+      String query) async {
+    List<ShoppingListValueItem> suggestions = List();
+    final strFrontCode = query.substring(0, query.length - 1);
+    final strEndCode = query.substring(query.length - 1, query.length);
+
+    final limit =
+        strFrontCode + String.fromCharCode(strEndCode.codeUnitAt(0) + 1);
+
+    QuerySnapshot querySnapshot = await shoppingListRef
+        .doc(Constants.DOCUMENT_ALL)
+        .collection(Constants.SUB_COLLECTION_ITEMS)
+        .where(Constants.FIELD_NAME, isGreaterThanOrEqualTo: query)
+        .where(Constants.FIELD_NAME, isLessThan: limit)
+        .get();
+
+    querySnapshot.docs.forEach((element) {
+      Map<String, dynamic> map = element.data();
+      String name = map[Constants.FIELD_NAME];
+      String category = map[Constants.FIELD_CATEGORY] ?? "Allgemein";
+      suggestions.add(ShoppingListValueItem(category: category, name: name));
+    });
+
+    return suggestions;
+  }
+
+  @override
+  Future<List<ShoppingListValueItem>> getShoppingList(String document) async {
+    List<ShoppingListValueItem> items = List();
+    QuerySnapshot querySnapshot = await shoppingListRef
+        .doc(document)
+        .collection(Constants.SUB_COLLECTION_ITEMS)
+        .get();
+
+    querySnapshot.docs.forEach((element) {
+      Map<String, dynamic> map = element.data();
+      String name = map[Constants.FIELD_NAME];
+      String category = map[Constants.FIELD_CATEGORY] ?? "Allgemein";
+      items.add(ShoppingListValueItem(category: category, name: name));
+    });
+
+    return items;
+  }
+
+  @override
+  Stream<List<ShoppingListValueItem>> getAndListenToShoppingList(
+      String document) {
+    _activeShoppingListSubscription = shoppingListRef
+        .doc(document)
+        .collection(Constants.SUB_COLLECTION_ITEMS)
+        .snapshots()
+        .listen((event) {
+      List<ShoppingListValueItem> items = List();
+      event.docs.forEach((element) {
+        Map<String, dynamic> map = element.data();
+        String name = map[Constants.FIELD_NAME];
+        String category =
+            map[Constants.FIELD_CATEGORY] ?? Constants.DEFAULT_CATEGORY;
+        items.add(ShoppingListValueItem(category: category, name: name));
+      });
+      _shoppingListController.add(items);
+    });
+    return shoppingStream;
+  }
+
+  @override
+  Future<void> cancelStreamSubscription() {
+    if (_activeShoppingListSubscription != null) {
+      _activeShoppingListSubscription.cancel();
+      _activeShoppingListSubscription = null;
+    }
+    return Future.value();
+  }
+
+  @override
+  Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem) async {
+    await saveShoppingItemToCollection(Constants.DOCUMENT_ACTIVE, shoppingItem);
+    await saveShoppingItemToCollection(Constants.DOCUMENT_ALL, shoppingItem);
+  }
+
+  Future<void> saveShoppingItemToCollection(
+      String document, ShoppingListValueItem shoppingItem) async {
+    var querySnapshot = await shoppingListRef
+        .doc(document)
+        .collection(Constants.SUB_COLLECTION_ITEMS)
+        .where(Constants.FIELD_NAME, isEqualTo: shoppingItem.name)
+        .get();
+    if (querySnapshot.docs.isNotEmpty) return Future.value();
+    return shoppingListRef
+        .doc(document)
+        .collection(Constants.SUB_COLLECTION_ITEMS)
+        .add({
+      Constants.FIELD_CATEGORY: shoppingItem.category,
+      Constants.FIELD_NAME: shoppingItem.name
+    });
+  }
+
+  @override
+  Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem) async {
+    var querySnapshot = await shoppingListRef
+        .doc(Constants.DOCUMENT_ACTIVE)
+        .collection(Constants.SUB_COLLECTION_ITEMS)
+        .where(Constants.FIELD_NAME, isEqualTo: shoppingItem.name)
+        .get();
+    querySnapshot.docs.forEach((element) {
+      element.reference.delete();
+    });
+    return Future.value();
   }
 
   @override
@@ -79,81 +191,17 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   }
 
   @override
-  Future<List<ShoppingListValueItem>> getShoppingSuggestions(String query) async {
-    List<ShoppingListValueItem> suggestions = List();
-    QuerySnapshot querySnapshot = await shoppingListRef
-        .doc(Constants.DOCUMENT_ALL)
-        .collection(Constants.SUB_COLLECTION_ITEMS)
-        .get();
+  Future<List<Category>> getCategories() async {
+    List<Category> categories = List();
+    QuerySnapshot querySnapshot = await categoryRef.get();
 
     querySnapshot.docs.forEach((element) {
       Map<String, dynamic> map = element.data();
       String name = map[Constants.FIELD_NAME];
-      String category = map[Constants.FIELD_CATEGORY] ?? "Allgemein";
-      suggestions.add(ShoppingListValueItem(category: category, name: name));
+      categories.add(Category(name: name));
     });
 
-    return suggestions;
-  }
-
-  @override
-  Future<List<ShoppingListValueItem>> getShoppingList() async {
-    List<ShoppingListValueItem> items = List();
-    QuerySnapshot querySnapshot = await shoppingListRef
-        .doc(Constants.DOCUMENT_ACTIVE)
-        .collection(Constants.SUB_COLLECTION_ITEMS)
-        .get();
-
-    querySnapshot.docs.forEach((element) {
-      Map<String, dynamic> map = element.data();
-      String name = map[Constants.FIELD_NAME];
-      String category = map[Constants.FIELD_CATEGORY] ?? "Allgemein";
-      items.add(ShoppingListValueItem(category: category, name: name));
-    });
-
-    return items;
-  }
-
-  @override
-  Stream<List<ShoppingListValueItem>> getAndListenToShoppingList() {
-    shoppingListRef
-        .doc(Constants.DOCUMENT_ACTIVE)
-        .collection(Constants.SUB_COLLECTION_ITEMS)
-        .snapshots()
-        .listen((event) {
-      List<ShoppingListValueItem> items = List();
-      event.docs.forEach((element) {
-        Map<String, dynamic> map = element.data();
-        String name = map[Constants.FIELD_NAME];
-        String category = map[Constants.FIELD_CATEGORY] ?? "Allgemein";
-        items.add(ShoppingListValueItem(category: category, name: name));
-      });
-      _shoppingListController.add(items);
-    });
-    return shoppingStream;
-  }
-
-  @override
-  Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem) {
-    return shoppingListRef
-        .doc(Constants.DOCUMENT_ACTIVE)
-        .collection(Constants.SUB_COLLECTION_ITEMS)
-        .add({
-      Constants.FIELD_CATEGORY: shoppingItem.category,
-      Constants.FIELD_NAME: shoppingItem.name
-    });
-  }
-
-  @override
-  Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem) async {
-    var querySnapshot = await shoppingListRef
-        .doc(Constants.DOCUMENT_ACTIVE)
-        .collection(Constants.SUB_COLLECTION_ITEMS)
-        .where(Constants.FIELD_NAME, isEqualTo: shoppingItem.name).get();
-    querySnapshot.docs.forEach((element) {
-      element.reference.delete();
-    });
-    return Future.value();
+    return categories;
   }
 
   @override
@@ -179,7 +227,9 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
 
   @override
   Future<void> deleteCategory(Category category) async {
-    var querySnapshot = await categoryRef.where(Constants.FIELD_NAME, isEqualTo: category.name).get();
+    var querySnapshot = await categoryRef
+        .where(Constants.FIELD_NAME, isEqualTo: category.name)
+        .get();
     querySnapshot.docs.forEach((element) {
       element.reference.delete();
     });

@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:shopping_list/models/categories/Category.dart';
+import 'package:shopping_list/models/shopping/shopping_list_header_item.dart';
+import 'package:shopping_list/models/shopping/shopping_list_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list.dart';
 import 'package:shopping_list/services/datasource/firebase/firestore_datasource.dart';
@@ -17,15 +19,20 @@ class ShoppingListRepositoryImpl implements ShoppingListRepository {
   }
 
   @override
-  Future<ShoppingList> getShoppingList() {
-    return _firestoreDatasource.getShoppingList().then((value) => _mapShoppingList(value));
+  Future<ShoppingList> getShoppingList(String document) {
+    return _firestoreDatasource.getShoppingList(document).then((value) => _mapShoppingList(value));
   }
 
   @override
-  Stream<ShoppingList> getAndListenToShoppingList() {
+  Stream<ShoppingList> getAndListenToShoppingList(String document) {
     return _firestoreDatasource
-        .getAndListenToShoppingList()
+        .getAndListenToShoppingList(document)
         .map((event) => _mapShoppingList(event));
+  }
+
+  @override
+  Future<void> cancelStreamSubscription() {
+    return _firestoreDatasource.cancelStreamSubscription();
   }
 
   ShoppingList _mapShoppingList(List<ShoppingListValueItem> items) {
@@ -43,7 +50,18 @@ class ShoppingListRepositoryImpl implements ShoppingListRepository {
     Map<Category, List<ShoppingListValueItem>> categoryMap = map.map((key, value) {
       return MapEntry(Category(name: key), value);
     });
-    return ShoppingList(items: categoryMap);
+
+    items.sort((a, b) => a.category.compareTo(b.category));
+
+    List<ShoppingListItem> list = List();
+    categoryMap.forEach((key, value) {
+      list.add(ShoppingListHeaderItem(category: key));
+      value.forEach((element) {
+        list.add(element);
+      });
+    });
+
+    return ShoppingList(items: list);
   }
 
   @override

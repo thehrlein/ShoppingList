@@ -47,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "navigationTabMenuListTitle" : MessageLookupByLibrary.simpleMessage("Essensplan"),
     "navigationTabSettingsTitle" : MessageLookupByLibrary.simpleMessage("Einstellungen"),
     "navigationTabShoppingListTitle" : MessageLookupByLibrary.simpleMessage("Einkaufsplan"),
+    "settingsSectionGeneralAllItemsSubtitle" : MessageLookupByLibrary.simpleMessage("Artikel bearbeiten"),
+    "settingsSectionGeneralAllItemsTitle" : MessageLookupByLibrary.simpleMessage("Artikel"),
     "settingsSectionGeneralCategorySubtitle" : MessageLookupByLibrary.simpleMessage("Kategorien bearbeiten"),
     "settingsSectionGeneralCategoryTitle" : MessageLookupByLibrary.simpleMessage("Kategorien"),
     "settingsSectionGeneralTitle" : MessageLookupByLibrary.simpleMessage("Allgemein"),
@@ -56,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "shoppingItemDetailsButtonSave" : MessageLookupByLibrary.simpleMessage("Speichern"),
     "shoppingItemDetailsHeadline" : MessageLookupByLibrary.simpleMessage("Du kannst den Namen sowie die Kategorie ändern"),
     "shoppingItemDetailsItemInputHint" : MessageLookupByLibrary.simpleMessage("Artikelname"),
+    "shoppingItemsTitle" : MessageLookupByLibrary.simpleMessage("Alle Artikel"),
     "shoppingListTitle" : MessageLookupByLibrary.simpleMessage("Einkaufsliste")
   };
 }

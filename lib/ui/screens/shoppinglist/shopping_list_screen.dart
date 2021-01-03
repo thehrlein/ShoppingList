@@ -12,6 +12,8 @@ import 'package:shopping_list/models/shopping/shopping_list.dart';
 import 'package:shopping_list/ui/screens/shoppinglist/cubit/shopping_list_cubit.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:shopping_list/ui/widgets/loading.dart';
+import 'package:shopping_list/ui/widgets/shopping_list_header_widget.dart';
+import 'package:shopping_list/ui/widgets/shopping_list_value_widget.dart';
 import 'package:shopping_list/ui/widgets/small_divider.dart';
 
 class ShoppingListScreen extends StatefulWidget {
@@ -75,6 +77,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
           subtitle: Text(item.category),
         );
       },
+      hideOnEmpty: true,
       onSuggestionSelected: (suggestion) {
         context.read<ShoppingListCubit>().onSuggestionSelected(suggestion);
       },
@@ -82,84 +85,24 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   }
 
   Widget _buildShoppingList(ShoppingList shoppingList, BuildContext context) {
-    Map<Category, List<ShoppingListValueItem>> map = shoppingList.items;
-    List<ShoppingListItem> list = List();
-    map.forEach((key, value) {
-      list.add(ShoppingListHeaderItem(category: key));
-      value.forEach((element) {
-        list.add(element);
-      });
-    });
     return Expanded(
       child: ListView.separated(
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          ShoppingListItem item = list[index];
+          ShoppingListItem item = shoppingList.items[index];
           if (item is ShoppingListHeaderItem) {
-            return _buildShoppingListHeaderItem(item);
+            return ShoppingListHeaderWidget(item: item);
           } else {
-            return _buildShoppingListValueItem(item, context);
+            return ShoppingListValueWidget(
+              item: item,
+              onDismiss: () =>
+                  context.read<ShoppingListCubit>().deleteShoppingItem(item),
+              onTap: () => Routes.openShoppingItemDetails(context, item),
+            );
           }
         },
         separatorBuilder: (context, index) => SmallDivider(),
-        itemCount: list.length,
-      ),
-    );
-  }
-
-  Widget _buildShoppingListValueItem(ShoppingListValueItem item, BuildContext context) {
-    return Dismissible(
-      key: Key(item.name),
-      direction: DismissDirection.startToEnd,
-      background: Container(
-        color: Colors.red,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Spaces.space_4),
-              child: Icon(Icons.delete),
-            ),
-          ],
-        ),
-      ),
-      onDismissed: (direction) {
-        context.read<ShoppingListCubit>().deleteShoppingItem(item);
-      },
-      child: InkWell(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(Spaces.space_4),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  item.name,
-                  style: Theme.of(context).textTheme.caption,
-                ),
-              ],
-            ),
-          ),
-        ),
-        onTap: () => Routes.openShoppingItemDetails(context, item),
-      ),
-    );
-  }
-
-  Widget _buildShoppingListHeaderItem(ShoppingListHeaderItem item) {
-    return InkWell(
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(Spaces.space_4),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                item.category.name,
-                style: Theme.of(context).textTheme.headline5,
-              ),
-            ],
-          ),
-        ),
+        itemCount: shoppingList.items.length,
       ),
     );
   }

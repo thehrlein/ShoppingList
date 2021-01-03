@@ -28,9 +28,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           appBar: AppBar(
             title: Text(S.of(context).categoriesTitle),
           ),
-          body: state.when(
-            loading: () => SimpleLoadingIndicator(),
-            loaded: _showCategories,
+          body: RefreshIndicator(
+            child: state.when(
+              loading: () => SimpleLoadingIndicator(),
+              loaded: _showCategories,
+            ),
+            onRefresh: () => widget.categoriesCubit.refreshCategories(),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () => _onFabClicked(context),

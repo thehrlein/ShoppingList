@@ -47,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "navigationTabMenuListTitle" : MessageLookupByLibrary.simpleMessage("Menu List"),
     "navigationTabSettingsTitle" : MessageLookupByLibrary.simpleMessage("Settings"),
     "navigationTabShoppingListTitle" : MessageLookupByLibrary.simpleMessage("Shopping List"),
+    "settingsSectionGeneralAllItemsSubtitle" : MessageLookupByLibrary.simpleMessage("Edit all articles"),
+    "settingsSectionGeneralAllItemsTitle" : MessageLookupByLibrary.simpleMessage("Articles"),
     "settingsSectionGeneralCategorySubtitle" : MessageLookupByLibrary.simpleMessage("Edit your categories"),
     "settingsSectionGeneralCategoryTitle" : MessageLookupByLibrary.simpleMessage("Categories"),
     "settingsSectionGeneralTitle" : MessageLookupByLibrary.simpleMessage("General"),
@@ -56,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "shoppingItemDetailsButtonSave" : MessageLookupByLibrary.simpleMessage("Save"),
     "shoppingItemDetailsHeadline" : MessageLookupByLibrary.simpleMessage("You can change name and category if that item here"),
     "shoppingItemDetailsItemInputHint" : MessageLookupByLibrary.simpleMessage("Item name"),
+    "shoppingItemsTitle" : MessageLookupByLibrary.simpleMessage("All articles"),
     "shoppingListTitle" : MessageLookupByLibrary.simpleMessage("Shopping List")
   };
 }

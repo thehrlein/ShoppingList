@@ -8,34 +8,24 @@ import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list.dart';
 import 'package:shopping_list/services/respository/shoppinglist/shopping_list_repository.dart';
 
-part 'shopping_list_cubit.freezed.dart';
-
-part 'shopping_list_state.dart';
+part 'edit_shopping_items_cubit.freezed.dart';
+part 'edit_shopping_items_state.dart';
 
 @Injectable()
-class ShoppingListCubit extends Cubit<ShoppingListState> {
+class EditShoppingItemsCubit extends Cubit<EditShoppingItemsState> {
   final ShoppingListRepository _shoppingListRepository;
   StreamSubscription _shoppingListSubscription;
 
-  ShoppingListCubit(this._shoppingListRepository) : super(ShoppingListLoading()) {
-    _shoppingListSubscription = _shoppingListRepository.getAndListenToShoppingList(Constants.DOCUMENT_ACTIVE).listen((event) {
-      emit(ShoppingListLoaded(shoppingList: event));
+  EditShoppingItemsCubit(this._shoppingListRepository) : super(EditShoppingItemsLoading()) {
+    _shoppingListSubscription = _shoppingListRepository.getAndListenToShoppingList(Constants.DOCUMENT_ALL).listen((event) {
+      emit(EditShoppingItemsLoaded(shoppingList: event));
     });
   }
 
   Future<void> refreshShoppingList() {
     return _shoppingListRepository
-        .getShoppingList(Constants.DOCUMENT_ACTIVE)
-        .then((value) => emit(ShoppingListLoaded(shoppingList: value)));
-  }
-
-  Future<List<ShoppingListValueItem>> getQuerySuggestions(String query) {
-    if (query.isEmpty) return Future.value(List.empty());
-    return _shoppingListRepository.getSuggestions(query);
-  }
-
-  void onSuggestionSelected(ShoppingListValueItem shoppingItem) {
-    saveShoppingItem(shoppingItem);
+        .getShoppingList(Constants.DOCUMENT_ALL)
+        .then((value) => emit(EditShoppingItemsLoaded(shoppingList: value)));
   }
 
   Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem) {
@@ -52,4 +42,6 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
     _shoppingListRepository.cancelStreamSubscription();
     return super.close();
   }
+
+
 }
