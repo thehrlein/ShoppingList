@@ -6,6 +6,7 @@ import 'package:shopping_list/models/categories/Category.dart';
 import 'package:shopping_list/models/menu/menu_plan.dart';
 import 'package:shopping_list/models/menu/menu_plan_day.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
+import 'package:shopping_list/models/shopping/shopping_item_edit_type.dart';
 import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/services/datasource/firebase/firestore_datasource.dart';
 
@@ -40,7 +41,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   @override
   Future<List<ShoppingListValueItem>> getShoppingSuggestions(
       String query) async {
-    List<ShoppingListValueItem> suggestions = List();
+    List<ShoppingListValueItem> suggestions = [];
     final strFrontCode = query.substring(0, query.length - 1);
     final strEndCode = query.substring(query.length - 1, query.length);
 
@@ -66,7 +67,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
 
   @override
   Future<List<ShoppingListValueItem>> getShoppingList(String document) async {
-    List<ShoppingListValueItem> items = List();
+    List<ShoppingListValueItem> items = [];
     QuerySnapshot querySnapshot = await shoppingListRef
         .doc(document)
         .collection(Constants.SUB_COLLECTION_ITEMS)
@@ -90,7 +91,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
         .collection(Constants.SUB_COLLECTION_ITEMS)
         .snapshots()
         .listen((event) {
-      List<ShoppingListValueItem> items = List();
+      List<ShoppingListValueItem> items = [];
       event.docs.forEach((element) {
         Map<String, dynamic> map = element.data();
         String name = map[Constants.FIELD_NAME];
@@ -124,33 +125,65 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
         .doc(document)
         .collection(Constants.SUB_COLLECTION_ITEMS)
         .where(Constants.FIELD_NAME, isEqualTo: shoppingItem.name)
+        .where(Constants.FIELD_CATEGORY, isEqualTo: shoppingItem.category)
         .get();
     if (querySnapshot.docs.isNotEmpty) return Future.value();
     return shoppingListRef
         .doc(document)
         .collection(Constants.SUB_COLLECTION_ITEMS)
         .add({
-      Constants.FIELD_CATEGORY: shoppingItem.category,
-      Constants.FIELD_NAME: shoppingItem.name
+      Constants.FIELD_NAME: shoppingItem.name,
+      Constants.FIELD_CATEGORY: shoppingItem.category ?? Constants.DEFAULT_CATEGORY
     });
   }
 
   @override
-  Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem) async {
-    var querySnapshot = await shoppingListRef
-        .doc(Constants.DOCUMENT_ACTIVE)
-        .collection(Constants.SUB_COLLECTION_ITEMS)
-        .where(Constants.FIELD_NAME, isEqualTo: shoppingItem.name)
-        .get();
-    querySnapshot.docs.forEach((element) {
-      element.reference.delete();
-    });
+  Future<void> editShoppingItem(ShoppingItemEditType editType,
+      ShoppingListValueItem oldItem, ShoppingListValueItem newItem) async {
+    if (editType == ShoppingItemEditType.ACTIVE) {
+      // change active
+      await deleteShoppingItem(oldItem, ShoppingItemEditType.ACTIVE.getDocument());
+      await saveShoppingItemToCollection(
+          ShoppingItemEditType.ACTIVE.getDocument(), newItem);
+      // save to all
+      await saveShoppingItemToCollection(
+          ShoppingItemEditType.ALL.getDocument(), newItem);
+    } else if (editType == ShoppingItemEditType.ALL) {
+      // change active
+      bool hadActiveItem = await deleteShoppingItem(
+          oldItem, ShoppingItemEditType.ACTIVE.getDocument());
+      if (hadActiveItem) {
+        await saveShoppingItemToCollection(
+            ShoppingItemEditType.ACTIVE.getDocument(), newItem);
+      }
+      // change all
+      await deleteShoppingItem(oldItem, ShoppingItemEditType.ALL.getDocument());
+      await saveShoppingItemToCollection(
+          ShoppingItemEditType.ALL.getDocument(), newItem);
+    }
+
     return Future.value();
   }
 
   @override
+  Future<bool> deleteShoppingItem(
+      ShoppingListValueItem shoppingItem, String document) async {
+    var querySnapshot = await shoppingListRef
+        .doc(document)
+        .collection(Constants.SUB_COLLECTION_ITEMS)
+        .where(Constants.FIELD_NAME, isEqualTo: shoppingItem.name)
+        .where(Constants.FIELD_CATEGORY, isEqualTo: shoppingItem.category)
+        .get();
+    bool deleted = querySnapshot.docs.isNotEmpty;
+    querySnapshot.docs.forEach((element) {
+      element.reference.delete();
+    });
+    return deleted;
+  }
+
+  @override
   Future<MenuPlan> getMenuPlan() async {
-    List<MenuPlanItem> planItems = List();
+    List<MenuPlanItem> planItems = [];
     QuerySnapshot querySnapshot = await menuRef.get();
 
     querySnapshot.docs.forEach((element) {
@@ -165,7 +198,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   @override
   Stream<MenuPlan> getAndListenToMenuPlan() {
     menuRef.snapshots().listen((event) {
-      List<MenuPlanItem> planItems = List();
+      List<MenuPlanItem> planItems = [];
       event.docs.forEach((element) {
         Map<String, dynamic> map = element.data();
         String dish = map[Constants.FIELD_DISH];
@@ -192,7 +225,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
 
   @override
   Future<List<Category>> getCategories() async {
-    List<Category> categories = List();
+    List<Category> categories = [];
     QuerySnapshot querySnapshot = await categoryRef.get();
 
     querySnapshot.docs.forEach((element) {
@@ -207,7 +240,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   @override
   Stream<Set<Category>> getAndListenToCategories() {
     categoryRef.snapshots().listen((event) {
-      List<Category> categories = List();
+      List<Category> categories = [];
       event.docs.forEach((element) {
         Map<String, dynamic> map = element.data();
         String name = map[Constants.FIELD_NAME];

@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shopping_list/app/utils/constants.dart';
 import 'package:shopping_list/models/categories/Category.dart';
+import 'package:shopping_list/models/shopping/shopping_item_edit_type.dart';
 import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/services/respository/categories/categories_repository.dart';
 import 'package:shopping_list/services/respository/shoppinglist/shopping_list_repository.dart';
@@ -24,16 +26,16 @@ class ShoppingItemDetailsCubit extends Cubit<ShoppingItemDetailsState> {
   }
 
   Future<void> editShoppingItem(
-      {@required ShoppingListValueItem newItem,
+      {@required ShoppingItemEditType editType,
+      @required ShoppingListValueItem newItem,
       @required ShoppingListValueItem oldItem}) {
     emit(ShoppingItemDetailsLoading());
-    return _shoppingListRepository
-        .deleteShoppingItem(oldItem)
-        .then((value) => _shoppingListRepository.saveShoppingItem(newItem));
+    return _shoppingListRepository.editShoppingItem(editType, oldItem, newItem);
   }
 
-  Future<void> deleteShoppingItem(ShoppingListValueItem item) {
+  Future<void> deleteShoppingItem({@required ShoppingItemEditType editType, ShoppingListValueItem item}) {
     emit(ShoppingItemDetailsLoading());
-    return _shoppingListRepository.deleteShoppingItem(item);
+    return _shoppingListRepository.deleteShoppingItem(
+        item, editType.getDocument());
   }
 }

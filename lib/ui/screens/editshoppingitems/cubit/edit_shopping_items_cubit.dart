@@ -28,12 +28,8 @@ class EditShoppingItemsCubit extends Cubit<EditShoppingItemsState> {
         .then((value) => emit(EditShoppingItemsLoaded(shoppingList: value)));
   }
 
-  Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem) {
-    return _shoppingListRepository.saveShoppingItem(shoppingItem);
-  }
-
   Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem) {
-    return _shoppingListRepository.deleteShoppingItem(shoppingItem);
+    return _shoppingListRepository.deleteShoppingItem(shoppingItem, Constants.DOCUMENT_ALL);
   }
 
   @override

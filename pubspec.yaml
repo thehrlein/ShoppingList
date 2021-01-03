@@ -46,7 +46,7 @@ dependencies:
   hive_flutter: ^0.3.1
   # shared preferences
   streaming_shared_preferences: ^1.0.1
-  # pair / tuble support
+  # pair / tuple support
   tuple: ^1.0.3
   # firebase
   firebase_core: 0.5.3

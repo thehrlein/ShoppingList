@@ -4,7 +4,8 @@ import 'package:shopping_list/app/navigation/routes.dart';
 import 'package:shopping_list/app/translations/output/l10n.dart';
 import 'package:shopping_list/app/utils/auto_bloc_provider.dart';
 import 'package:shopping_list/app/utils/dimens.dart';
-import 'package:shopping_list/models/categories/Category.dart';
+import 'package:shopping_list/models/shopping/shopping_item_edit_model.dart';
+import 'package:shopping_list/models/shopping/shopping_item_edit_type.dart';
 import 'package:shopping_list/models/shopping/shopping_list_header_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
@@ -22,6 +23,9 @@ class ShoppingListScreen extends StatefulWidget {
 }
 
 class _ShoppingListScreenState extends State<ShoppingListScreen> {
+
+  TextEditingController _searchInputController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return AutoBlocProvider<ShoppingListCubit>(
@@ -58,18 +62,28 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     return TypeAheadField(
       textFieldConfiguration: TextFieldConfiguration(
         autofocus: false,
+        textInputAction: TextInputAction.go,
+        controller: _searchInputController,
         onSubmitted: (value) {
           context
               .read<ShoppingListCubit>()
               .saveShoppingItem(ShoppingListValueItem(name: value));
         },
         decoration: InputDecoration(
+          suffixIcon: IconButton(
+            icon: Icon(Icons.clear),
+            onPressed: () => _searchInputController.text = "",
+          ),
           border: OutlineInputBorder(),
         ),
       ),
       suggestionsCallback: (input) async {
         return context.read<ShoppingListCubit>().getQuerySuggestions(input);
       },
+      transitionBuilder: (context, suggestionsBox, controller) {
+        return suggestionsBox;
+      },
+      noItemsFoundBuilder: (context) => SizedBox.shrink(),
       itemBuilder: (context, suggestion) {
         ShoppingListValueItem item = suggestion;
         return ListTile(
@@ -78,6 +92,8 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
         );
       },
       hideOnEmpty: true,
+      hideOnLoading: false,
+      keepSuggestionsOnLoading: true,
       onSuggestionSelected: (suggestion) {
         context.read<ShoppingListCubit>().onSuggestionSelected(suggestion);
       },
@@ -97,7 +113,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
               item: item,
               onDismiss: () =>
                   context.read<ShoppingListCubit>().deleteShoppingItem(item),
-              onTap: () => Routes.openShoppingItemDetails(context, item),
+              onTap: () => Routes.openShoppingItemDetails(context, ShoppingItemEditModel(item, ShoppingItemEditType.ACTIVE)),
             );
           }
         },

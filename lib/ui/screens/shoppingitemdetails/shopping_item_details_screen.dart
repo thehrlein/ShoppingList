@@ -5,6 +5,8 @@ import 'package:shopping_list/app/translations/output/l10n.dart';
 import 'package:shopping_list/app/utils/auto_bloc_provider.dart';
 import 'package:shopping_list/app/utils/dimens.dart';
 import 'package:shopping_list/models/categories/Category.dart';
+import 'package:shopping_list/models/shopping/shopping_item_edit_model.dart';
+import 'package:shopping_list/models/shopping/shopping_item_edit_type.dart';
 import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/ui/screens/shoppingitemdetails/cubit/shopping_item_details_cubit.dart';
 import 'package:shopping_list/ui/widgets/loading.dart';
@@ -19,13 +21,16 @@ class _ShoppingItemDetailsScreenState extends State<ShoppingItemDetailsScreen> {
   String _category = "";
   final _shoppingItemController = TextEditingController();
   ShoppingListValueItem _initialShoppingValueItem;
+  ShoppingItemEditType editType;
 
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
       setState(() {
-        _initialShoppingValueItem =
-            ModalRoute.of(context).settings.arguments as ShoppingListValueItem;
+        ShoppingItemEditModel editModel =
+            ModalRoute.of(context).settings.arguments as ShoppingItemEditModel;
+        _initialShoppingValueItem = editModel.shoppingItem;
+        editType = editModel.itemType;
         _category = _initialShoppingValueItem.category;
         _shoppingItemController.text = _initialShoppingValueItem.name;
       });
@@ -63,7 +68,8 @@ class _ShoppingItemDetailsScreenState extends State<ShoppingItemDetailsScreen> {
                         TextField(
                           controller: _shoppingItemController,
                           decoration: InputDecoration(
-                            labelText: S.of(context).shoppingItemDetailsItemInputHint,
+                            labelText:
+                                S.of(context).shoppingItemDetailsItemInputHint,
                           ),
                         ),
                         SizedBox(
@@ -89,21 +95,23 @@ class _ShoppingItemDetailsScreenState extends State<ShoppingItemDetailsScreen> {
                         ),
                         RaisedButton(
                           child:
-                          Text(S.of(context).shoppingItemDetailsButtonSave),
+                              Text(S.of(context).shoppingItemDetailsButtonSave),
                           onPressed: () {
                             context
                                 .read<ShoppingItemDetailsCubit>()
                                 .editShoppingItem(
-                                newItem: ShoppingListValueItem(
-                                    name: _shoppingItemController.text,
-                                    category: _category),
-                                oldItem: _initialShoppingValueItem)
+                                    editType: editType,
+                                    newItem: ShoppingListValueItem(
+                                        name: _shoppingItemController.text,
+                                        category: _category),
+                                    oldItem: _initialShoppingValueItem)
                                 .then((value) => Routes.pop(context));
                           },
                         ),
                         RaisedButton(
-                          child:
-                          Text(S.of(context).shoppingItemDetailsButtonEditCategories),
+                          child: Text(S
+                              .of(context)
+                              .shoppingItemDetailsButtonEditCategories),
                           onPressed: () => Routes.openCategories(context),
                         ),
                         RaisedButton(
@@ -113,7 +121,9 @@ class _ShoppingItemDetailsScreenState extends State<ShoppingItemDetailsScreen> {
                           onPressed: () {
                             context
                                 .read<ShoppingItemDetailsCubit>()
-                                .deleteShoppingItem(_initialShoppingValueItem)
+                                .deleteShoppingItem(
+                                    editType: editType,
+                                    item: _initialShoppingValueItem)
                                 .then((value) => Routes.pop(context));
                           },
                         ),

@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:shopping_list/models/categories/Category.dart';
+import 'package:shopping_list/models/shopping/shopping_item_edit_type.dart';
 import 'package:shopping_list/models/shopping/shopping_list_header_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
@@ -42,7 +43,7 @@ class ShoppingListRepositoryImpl implements ShoppingListRepository {
         value.add(element);
         return value;
       }, ifAbsent: () {
-        List<ShoppingListValueItem> items = List();
+        List<ShoppingListValueItem> items = [];
         items.add(element);
         return items;
       });
@@ -53,7 +54,7 @@ class ShoppingListRepositoryImpl implements ShoppingListRepository {
 
     items.sort((a, b) => a.category.compareTo(b.category));
 
-    List<ShoppingListItem> list = List();
+    List<ShoppingListItem> list = [];
     categoryMap.forEach((key, value) {
       list.add(ShoppingListHeaderItem(category: key));
       value.forEach((element) {
@@ -65,12 +66,17 @@ class ShoppingListRepositoryImpl implements ShoppingListRepository {
   }
 
   @override
-  Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem) {
-    return _firestoreDatasource.deleteShoppingItem(shoppingItem);
+  Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem, String document) {
+    return _firestoreDatasource.deleteShoppingItem(shoppingItem, document);
   }
 
   @override
   Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem) {
     return _firestoreDatasource.saveShoppingItem(shoppingItem);
+  }
+
+  @override
+  Future<void> editShoppingItem(ShoppingItemEditType editType, ShoppingListValueItem oldItem, ShoppingListValueItem newItem) {
+    return _firestoreDatasource.editShoppingItem(editType, oldItem, newItem);
   }
 }

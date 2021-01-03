@@ -39,11 +39,12 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
   }
 
   Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem) {
+    if (shoppingItem.name.isEmpty) return Future.value();
     return _shoppingListRepository.saveShoppingItem(shoppingItem);
   }
 
   Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem) {
-    return _shoppingListRepository.deleteShoppingItem(shoppingItem);
+    return _shoppingListRepository.deleteShoppingItem(shoppingItem, Constants.DOCUMENT_ACTIVE);
   }
 
   @override

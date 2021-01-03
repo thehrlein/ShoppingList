@@ -47,7 +47,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
 
   Widget _showMenuList(MenuPlan menuPlan) {
     List<MenuPlanItem> nonNullList = menuPlan.plan.where((element) => element.day != null && element.dish != null).toList();
-    List<MenuPlanItem> filteredItems = List();
+    List<MenuPlanItem> filteredItems = [];
     for (var day in MenuPlanDay.values) {
       MenuPlanItem item = nonNullList.firstWhere((element) => element.day == day, orElse: () => null);
       if (item != null) {

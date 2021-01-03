@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
+import 'package:shopping_list/models/shopping/shopping_item_edit_model.dart';
 import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/ui/screens/categories/categories_screen.dart';
 import 'package:shopping_list/ui/screens/editshoppingitems/edit_shopping_items_screen.dart';
@@ -34,8 +35,8 @@ mixin Routes {
     }
   }
 
-  static void openShoppingItemDetails(BuildContext context, ShoppingListValueItem shoppingListValueItem) {
-    Navigator.of(context).pushNamed(_shoppingitemdetails, arguments: shoppingListValueItem);
+  static void openShoppingItemDetails(BuildContext context, ShoppingItemEditModel shoppingItemEditModel) {
+    Navigator.of(context).pushNamed(_shoppingitemdetails, arguments: shoppingItemEditModel);
   }
 
   static void openMenuDetails(BuildContext context, {MenuPlanItem menuPlanItem}) {

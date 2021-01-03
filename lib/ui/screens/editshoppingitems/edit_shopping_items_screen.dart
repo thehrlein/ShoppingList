@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shopping_list/app/navigation/routes.dart';
 import 'package:shopping_list/app/translations/output/l10n.dart';
+import 'package:shopping_list/models/shopping/shopping_item_edit_model.dart';
+import 'package:shopping_list/models/shopping/shopping_item_edit_type.dart';
 import 'package:shopping_list/models/shopping/shopping_list.dart';
 import 'package:shopping_list/models/shopping/shopping_list_header_item.dart';
 import 'package:shopping_list/models/shopping/shopping_list_item.dart';
@@ -60,7 +63,7 @@ class _EditShoppingItemsScreenState extends State<EditShoppingItemsScreen> {
             item: item,
             onDismiss: () =>
                 widget.editShoppingItemsCubit.deleteShoppingItem(item),
-            onTap: () => null,
+            onTap: () => Routes.openShoppingItemDetails(context, ShoppingItemEditModel(item, ShoppingItemEditType.ALL)),
           );
         }
       },
