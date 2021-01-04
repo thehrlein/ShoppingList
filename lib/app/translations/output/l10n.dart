@@ -335,6 +335,26 @@ class S {
     );
   }
 
+  /// `Erscheinung`
+  String get settingsSectionAppearanceTitle {
+    return Intl.message(
+      'Erscheinung',
+      name: 'settingsSectionAppearanceTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dunkles Design`
+  String get settingsSectionAppearanceDarkTheme {
+    return Intl.message(
+      'Dunkles Design',
+      name: 'settingsSectionAppearanceDarkTheme',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Kategorien`
   String get categoriesTitle {
     return Intl.message(

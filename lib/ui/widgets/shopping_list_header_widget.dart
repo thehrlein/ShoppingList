@@ -23,7 +23,9 @@ class _ShoppingListHeaderWidgetState extends State<ShoppingListHeaderWidget> {
           children: [
             Text(
               widget.item.category.name,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headline5.copyWith(
+                color: Theme.of(context).primaryColor
+              ),
             ),
           ],
         ),

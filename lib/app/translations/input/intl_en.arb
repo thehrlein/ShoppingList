@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2021-01-03T14:36:02.905599",
+  "@@last_modified": "2021-01-03T19:52:34.442767",
   "appName": "Shopping List",
   "@appName": {
     "type": "Text",
@@ -149,6 +149,16 @@
   },
   "settingsSectionGeneralAllItemsSubtitle": "Edit all articles",
   "@settingsSectionGeneralAllItemsSubtitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionAppearanceTitle": "Appearance",
+  "@settingsSectionAppearanceTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionAppearanceDarkTheme": "Dark theme",
+  "@settingsSectionAppearanceDarkTheme": {
     "type": "Text",
     "context": " settings "
   },

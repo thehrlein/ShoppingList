@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list/app/utils/dimens.dart';
 
-ThemeData darkTheme = ThemeData(
+ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.black,
-  brightness: Brightness.dark,
-  accentColor: Colors.white,
+  brightness: Brightness.light,
+  accentColor: Colors.black,
   accentIconTheme: IconThemeData(color: Colors.white),
-  dividerColor: Colors.black12,
+  dividerColor: Colors.white54,
   fontFamily: "JetBrainsMono",
   buttonTheme: ButtonThemeData(
-    buttonColor: Colors.white,
+    buttonColor: Colors.black,
     textTheme: ButtonTextTheme.primary,
   ),
   appBarTheme: AppBarTheme(
-    color: Colors.black,
-    brightness: Brightness.dark,
+    color: Colors.white,
+    brightness: Brightness.light,
     centerTitle: false,
     elevation: 1,
     textTheme: TextTheme(
       headline6: TextStyle(
         fontSize: FontSizes.font_size_headline_6,
-        color: Colors.white,
+        color: Colors.black,
       ),
     ),
-    iconTheme: IconThemeData(color: Colors.white),
+    iconTheme: IconThemeData(color: Colors.black),
   ),
   tabBarTheme: TabBarTheme(
     labelPadding: EdgeInsets.symmetric(horizontal: Spaces.space_2),
@@ -32,10 +32,10 @@ ThemeData darkTheme = ThemeData(
         fontFamily: "JetBrainsMono", fontSize: FontSizes.font_size_body_2),
     unselectedLabelStyle: TextStyle(
         fontFamily: "JetBrainsMono", fontSize: FontSizes.font_size_body_2),
-    labelColor: Colors.white,
+    labelColor: Colors.black,
     indicator: UnderlineTabIndicator(
       borderSide: BorderSide(
-        color: Colors.white,
+        color: Colors.black,
         width: 1.5,
         style: BorderStyle.solid,
       ),
@@ -43,12 +43,12 @@ ThemeData darkTheme = ThemeData(
     ),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: Colors.grey[900],
+    backgroundColor: Colors.grey[100],
     selectedItemColor: Colors.red,
-    unselectedItemColor: Colors.white,
+    unselectedItemColor: Colors.black,
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: Colors.white,
-    foregroundColor: Colors.black,
+    backgroundColor: Colors.black,
+    foregroundColor: Colors.white,
   ),
 );

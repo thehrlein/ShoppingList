@@ -42,7 +42,7 @@ class _ShoppingListValueWidgetState extends State<ShoppingListValueWidget> {
               children: [
                 Text(
                   widget.item.name,
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
               ],
             ),

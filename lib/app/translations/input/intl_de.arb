@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2021-01-03T14:36:02.905599",
+  "@@last_modified": "2021-01-03T19:52:34.442767",
   "appName": "Einkaufsliste",
   "@appName": {
     "type": "Text",
@@ -149,6 +149,16 @@
   },
   "settingsSectionGeneralAllItemsSubtitle": "Artikel bearbeiten",
   "@settingsSectionGeneralAllItemsSubtitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionAppearanceTitle": "Erscheinung",
+  "@settingsSectionAppearanceTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsSectionAppearanceDarkTheme": "Dunkles Design",
+  "@settingsSectionAppearanceDarkTheme": {
     "type": "Text",
     "context": " settings "
   },

@@ -6,7 +6,9 @@
 
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
+import '../theme/app_theme_cubit.dart';
 import '../../ui/screens/categories/cubit/categories_cubit.dart';
 import '../../services/respository/categories/categories_repository.dart';
 import '../../services/respository/categories/categories_repository_impl.dart';
@@ -18,6 +20,8 @@ import '../../ui/screens/menulist/cubit/menu_list_cubit.dart';
 import '../../services/respository/menu/menu_repository.dart';
 import '../../services/respository/menu/menu_repository_impl.dart';
 import '../navigation/navigation_manager.dart';
+import '../../services/settings/settings_manager.dart';
+import '../../services/settings/settings_manager_impl.dart';
 import '../../ui/screens/shoppingitemdetails/cubit/shopping_item_details_cubit.dart';
 import '../../ui/screens/shoppinglist/cubit/shopping_list_cubit.dart';
 import '../../services/respository/shoppinglist/shopping_list_repository.dart';
@@ -33,6 +37,8 @@ GetIt $initGetIt(
   EnvironmentFilter environmentFilter,
 }) {
   final gh = GetItHelper(get, environment, environmentFilter);
+  gh.lazySingleton<SettingsManager>(() =>
+      SettingsManagerImpl(preferences: get<StreamingSharedPreferences>()));
   gh.factory<SplashCubit>(() => SplashCubit());
   gh.factory<EditShoppingItemsCubit>(
       () => EditShoppingItemsCubit(get<ShoppingListRepository>()));
@@ -51,6 +57,7 @@ GetIt $initGetIt(
   gh.singleton<NavigationManager>(NavigationManager());
   gh.singleton<ShoppingListRepository>(
       ShoppingListRepositoryImpl(get<FirestoreDatasource>()));
+  gh.singleton<AppThemeCubit>(AppThemeCubit(get<SettingsManager>()));
   gh.singleton<CategoriesRepository>(
       CategoriesRepositoryImpl(get<FirestoreDatasource>()));
   return get;

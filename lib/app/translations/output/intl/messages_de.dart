@@ -47,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "navigationTabMenuListTitle" : MessageLookupByLibrary.simpleMessage("Essensplan"),
     "navigationTabSettingsTitle" : MessageLookupByLibrary.simpleMessage("Einstellungen"),
     "navigationTabShoppingListTitle" : MessageLookupByLibrary.simpleMessage("Einkaufsplan"),
+    "settingsSectionAppearanceDarkTheme" : MessageLookupByLibrary.simpleMessage("Dunkles Design"),
+    "settingsSectionAppearanceTitle" : MessageLookupByLibrary.simpleMessage("Erscheinung"),
     "settingsSectionGeneralAllItemsSubtitle" : MessageLookupByLibrary.simpleMessage("Artikel bearbeiten"),
     "settingsSectionGeneralAllItemsTitle" : MessageLookupByLibrary.simpleMessage("Artikel"),
     "settingsSectionGeneralCategorySubtitle" : MessageLookupByLibrary.simpleMessage("Kategorien bearbeiten"),
