@@ -92,12 +92,18 @@ class _$MenuLoadingCopyWithImpl<$Res> extends _$MenuListStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$MenuLoading implements MenuLoading {
+class _$MenuLoading with DiagnosticableTreeMixin implements MenuLoading {
   const _$MenuLoading();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MenuListState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'MenuListState.loading'));
   }
 
   @override
@@ -191,15 +197,23 @@ class _$MenuLoadedCopyWithImpl<$Res> extends _$MenuListStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$MenuLoaded implements MenuLoaded {
+class _$MenuLoaded with DiagnosticableTreeMixin implements MenuLoaded {
   const _$MenuLoaded({@required this.menuPlan}) : assert(menuPlan != null);
 
   @override
   final MenuPlan menuPlan;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MenuListState.loaded(menuPlan: $menuPlan)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MenuListState.loaded'))
+      ..add(DiagnosticsProperty('menuPlan', menuPlan));
   }
 
   @override

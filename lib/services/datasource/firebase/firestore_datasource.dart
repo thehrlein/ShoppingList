@@ -14,7 +14,7 @@ abstract class FirestoreDatasource {
   Stream<List<ShoppingListValueItem>> getAndListenToShoppingList(
       String document);
 
-  Future<void> cancelStreamSubscription();
+  Future<void> cancelShoppingStreamSubscription();
 
   Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem);
 
@@ -34,6 +34,8 @@ abstract class FirestoreDatasource {
   Future<void> deleteDish(MenuPlanDay day);
 
   Future<List<Category>> getCategories();
+
+  void pauseMenuStreamSubscription();
 
   /// categories
   Stream<Set<Category>> getAndListenToCategories();

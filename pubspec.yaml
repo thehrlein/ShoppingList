@@ -49,10 +49,10 @@ dependencies:
   # pair / tuple support
   tuple: ^1.0.3
   # firebase
-  firebase_core: 0.5.3
-  firebase_analytics: ^6.3.0
-  firebase_crashlytics: ^0.2.4
-  cloud_firestore: ^0.14.4
+  firebase_core: ^0.7.0
+  firebase_analytics: ^7.0.1
+  firebase_crashlytics: ^0.4.0+1
+  cloud_firestore: ^0.16.0
   # autocomplete
   flutter_typeahead: ^1.9.1
   # settings
@@ -73,6 +73,7 @@ dev_dependencies:
 
 dependency_overrides:
   analyzer: ^0.40.1
+  intl: ^0.17.0-nullsafety.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

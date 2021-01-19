@@ -33,7 +33,7 @@ class ShoppingListRepositoryImpl implements ShoppingListRepository {
 
   @override
   Future<void> cancelStreamSubscription() {
-    return _firestoreDatasource.cancelStreamSubscription();
+    return _firestoreDatasource.cancelShoppingStreamSubscription();
   }
 
   ShoppingList _mapShoppingList(List<ShoppingListValueItem> items) {

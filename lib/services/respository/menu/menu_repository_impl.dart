@@ -30,4 +30,9 @@ class MenuRepositoryImpl implements MenuRepository {
   Future<void> deleteDish(MenuPlanDay day) {
     return _firestoreDatasource.deleteDish(day);
   }
+
+  @override
+  void pauseStreamSubscription() {
+    return _firestoreDatasource.pauseMenuStreamSubscription();
+  }
 }
