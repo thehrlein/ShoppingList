@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shopping_list/app/navigation/routes.dart';
 import 'package:shopping_list/app/translations/output/l10n.dart';
+import 'package:shopping_list/app/utils/dimens.dart';
 import 'package:shopping_list/models/shopping/shopping_item_edit_model.dart';
 import 'package:shopping_list/models/shopping/shopping_item_edit_type.dart';
 import 'package:shopping_list/models/shopping/shopping_list.dart';
@@ -52,23 +53,26 @@ class _EditShoppingItemsScreenState extends State<EditShoppingItemsScreen> {
   }
 
   Widget _buildShoppingList(ShoppingList shoppingList) {
-    return ListView.separated(
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        ShoppingListItem item = shoppingList.items[index];
-        if (item is ShoppingListHeaderItem) {
-          return ShoppingListHeaderWidget(item: item);
-        } else {
-          return ShoppingListValueWidget(
-            item: item,
-            onDismiss: () =>
-                widget.editShoppingItemsCubit.deleteShoppingItem(item),
-            onTap: () => Routes.openShoppingItemDetails(context, ShoppingItemEditModel(item, ShoppingItemEditType.ALL)),
-          );
-        }
-      },
-      separatorBuilder: (context, index) => SmallDivider(),
-      itemCount: shoppingList.items.length,
+    return Padding(
+      padding: const EdgeInsets.all(Spaces.space_4),
+      child: ListView.separated(
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          ShoppingListItem item = shoppingList.items[index];
+          if (item is ShoppingListHeaderItem) {
+            return ShoppingListHeaderWidget(item: item);
+          } else {
+            return ShoppingListValueWidget(
+              item: item,
+              onDismiss: () =>
+                  widget.editShoppingItemsCubit.deleteShoppingItem(item),
+              onTap: () => Routes.openShoppingItemDetails(context, ShoppingItemEditModel(item, ShoppingItemEditType.ALL)),
+            );
+          }
+        },
+        separatorBuilder: (context, index) => SmallDivider(),
+        itemCount: shoppingList.items.length,
+      ),
     );
   }
 }

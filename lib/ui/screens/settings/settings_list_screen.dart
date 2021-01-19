@@ -23,66 +23,64 @@ class _SettingsListScreenState extends State<SettingsListScreen> {
       appBar: AppBar(
         title: Text(S.of(context).settingsTitle),
       ),
-      body: AutoBlocProvider<AppThemeCubit>(
-        child: BlocBuilder<AppThemeCubit, AppThemeState>(
-            builder: (context, state) {
-          return state.when(
-              loading: () => Container(),
-              loaded: (theme) => Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: Spaces.space_4),
-                    child: SettingsList(
-                      backgroundColor:
-                          Theme.of(context).scaffoldBackgroundColor,
-                      sections: [
-                        SettingsSection(
-                          title: S.of(context).settingsSectionGeneralTitle,
-                          tiles: [
-                            SettingsTile(
-                              title: S
-                                  .of(context)
-                                  .settingsSectionGeneralCategoryTitle,
-                              titleMaxLines: 1,
-                              subtitle: S
-                                  .of(context)
-                                  .settingsSectionGeneralCategorySubtitle,
-                              subtitleMaxLines: 2,
-                              leading: Icon(Icons.category),
-                              onPressed: (context) =>
-                                  Routes.openCategories(context),
-                            ),
-                            SettingsTile(
-                              title: S
-                                  .of(context)
-                                  .settingsSectionGeneralAllItemsTitle,
-                              titleMaxLines: 1,
-                              subtitle: S
-                                  .of(context)
-                                  .settingsSectionGeneralAllItemsSubtitle,
-                              subtitleMaxLines: 2,
-                              leading: Icon(Icons.save),
-                              onPressed: (context) =>
-                                  Routes.openAllShoppingItems(context),
-                            ),
-                          ],
-                        ),
-                        SettingsSection(
-                          title: S.of(context).settingsSectionAppearanceTitle,
-                          tiles: [
-                            SettingsTile.switchTile(
-                              title: S.of(context).settingsSectionAppearanceDarkTheme,
-                              onToggle: (value) {
-                                context.read<AppThemeCubit>().onThemeSelected(value: value);
-                              },
-                              switchValue: theme == darkTheme,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ));
-        }),
-      ),
+      body: BlocBuilder<AppThemeCubit, AppThemeState>(
+          builder: (context, state) {
+        return state.when(
+            loading: () => Container(),
+            loaded: (theme) => Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: Spaces.space_4),
+                  child: SettingsList(
+                    backgroundColor:
+                        Theme.of(context).scaffoldBackgroundColor,
+                    sections: [
+                      SettingsSection(
+                        title: S.of(context).settingsSectionGeneralTitle,
+                        tiles: [
+                          SettingsTile(
+                            title: S
+                                .of(context)
+                                .settingsSectionGeneralCategoryTitle,
+                            titleMaxLines: 1,
+                            subtitle: S
+                                .of(context)
+                                .settingsSectionGeneralCategorySubtitle,
+                            subtitleMaxLines: 2,
+                            leading: Icon(Icons.category),
+                            onPressed: (context) =>
+                                Routes.openCategories(context),
+                          ),
+                          SettingsTile(
+                            title: S
+                                .of(context)
+                                .settingsSectionGeneralAllItemsTitle,
+                            titleMaxLines: 1,
+                            subtitle: S
+                                .of(context)
+                                .settingsSectionGeneralAllItemsSubtitle,
+                            subtitleMaxLines: 2,
+                            leading: Icon(Icons.save),
+                            onPressed: (context) =>
+                                Routes.openAllShoppingItems(context),
+                          ),
+                        ],
+                      ),
+                      SettingsSection(
+                        title: S.of(context).settingsSectionAppearanceTitle,
+                        tiles: [
+                          SettingsTile.switchTile(
+                            title: S.of(context).settingsSectionAppearanceDarkTheme,
+                            onToggle: (value) {
+                              context.read<AppThemeCubit>().onThemeSelected(value: value);
+                            },
+                            switchValue: theme == darkTheme,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ));
+      }),
     );
   }
 }

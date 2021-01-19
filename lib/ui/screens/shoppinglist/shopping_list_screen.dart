@@ -23,8 +23,8 @@ class ShoppingListScreen extends StatefulWidget {
 }
 
 class _ShoppingListScreenState extends State<ShoppingListScreen> {
-
   TextEditingController _searchInputController = TextEditingController();
+  FocusNode searchFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +61,19 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
       BuildContext context) {
     return TypeAheadField(
       textFieldConfiguration: TextFieldConfiguration(
+        focusNode: searchFocusNode,
         autofocus: false,
         textInputAction: TextInputAction.go,
         controller: _searchInputController,
         onSubmitted: (value) {
           context
               .read<ShoppingListCubit>()
-              .saveShoppingItem(ShoppingListValueItem(name: value));
+              .saveShoppingItem(ShoppingListValueItem(name: value))
+              .then((value) {
+                _searchInputController
+                    ..text = "";
+                searchFocusNode.requestFocus();
+              });
         },
         decoration: InputDecoration(
           suffixIcon: IconButton(
@@ -113,7 +119,8 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
               item: item,
               onDismiss: () =>
                   context.read<ShoppingListCubit>().deleteShoppingItem(item),
-              onTap: () => Routes.openShoppingItemDetails(context, ShoppingItemEditModel(item, ShoppingItemEditType.ACTIVE)),
+              onTap: () => Routes.openShoppingItemDetails(context,
+                  ShoppingItemEditModel(item, ShoppingItemEditType.ACTIVE)),
             );
           }
         },

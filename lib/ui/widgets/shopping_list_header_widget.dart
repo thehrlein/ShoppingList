@@ -17,15 +17,17 @@ class _ShoppingListHeaderWidgetState extends State<ShoppingListHeaderWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(Spaces.space_4),
+        padding: const EdgeInsets.fromLTRB(
+            Spaces.space_0, Spaces.space_4, Spaces.space_0, Spaces.space_0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               widget.item.category.name,
-              style: Theme.of(context).textTheme.headline5.copyWith(
-                color: Theme.of(context).primaryColor
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  .copyWith(color: Theme.of(context).textTheme.caption.color),
             ),
           ],
         ),

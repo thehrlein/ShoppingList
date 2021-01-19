@@ -74,7 +74,9 @@ class _MenuListScreenState extends State<MenuListScreen> {
             children: [
               Text(
                 item.day.getLocalizedDay(context),
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.caption.copyWith(
+                  fontSize: FontSizes.font_size_subtitle_1
+                ),
               ),
               Text(
                 item.dish,

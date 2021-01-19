@@ -40,6 +40,7 @@ GetIt $initGetIt(
   gh.lazySingleton<SettingsManager>(() =>
       SettingsManagerImpl(preferences: get<StreamingSharedPreferences>()));
   gh.factory<SplashCubit>(() => SplashCubit());
+  gh.factory<AppThemeCubit>(() => AppThemeCubit(get<SettingsManager>()));
   gh.factory<EditShoppingItemsCubit>(
       () => EditShoppingItemsCubit(get<ShoppingListRepository>()));
   gh.factory<MenuDetailsCubit>(() => MenuDetailsCubit(get<MenuRepository>()));
@@ -57,7 +58,6 @@ GetIt $initGetIt(
   gh.singleton<NavigationManager>(NavigationManager());
   gh.singleton<ShoppingListRepository>(
       ShoppingListRepositoryImpl(get<FirestoreDatasource>()));
-  gh.singleton<AppThemeCubit>(AppThemeCubit(get<SettingsManager>()));
   gh.singleton<CategoriesRepository>(
       CategoriesRepositoryImpl(get<FirestoreDatasource>()));
   return get;

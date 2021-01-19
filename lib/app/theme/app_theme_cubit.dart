@@ -9,7 +9,7 @@ import 'app_theme_dark.dart';
 import 'app_theme_light.dart';
 import 'app_theme_state.dart';
 
-@Singleton()
+@Injectable()
 class AppThemeCubit extends Cubit<AppThemeState> {
   SettingsManager _settingsManager;
 
