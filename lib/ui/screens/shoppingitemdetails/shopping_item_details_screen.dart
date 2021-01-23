@@ -29,10 +29,17 @@ class _ShoppingItemDetailsScreenState extends State<ShoppingItemDetailsScreen> {
       setState(() {
         ShoppingItemEditModel editModel =
             ModalRoute.of(context).settings.arguments as ShoppingItemEditModel;
-        _initialShoppingValueItem = editModel.shoppingItem;
-        editType = editModel.itemType;
-        _category = _initialShoppingValueItem.category;
-        _shoppingItemController.text = _initialShoppingValueItem.name;
+        if (editModel == null) {
+          SnackBar snackBar = SnackBar(
+            content: Text("FAILURE"),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else {
+          _initialShoppingValueItem = editModel.shoppingItem;
+          editType = editModel.itemType;
+          _category = _initialShoppingValueItem.category;
+          _shoppingItemController.text = _initialShoppingValueItem.name;
+        }
       });
     });
     super.initState();
@@ -43,16 +50,16 @@ class _ShoppingItemDetailsScreenState extends State<ShoppingItemDetailsScreen> {
     return AutoBlocProvider<ShoppingItemDetailsCubit>(
       child: BlocBuilder<ShoppingItemDetailsCubit, ShoppingItemDetailsState>(
         builder: (context, state) {
-          return state.when(
-              loading: () => SimpleLoadingIndicator(),
-              loaded: (categories) {
-                return Scaffold(
-                  appBar: AppBar(
-                    title: Text(
-                      _shoppingItemController.text,
-                    ),
-                  ),
-                  body: Padding(
+          return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  _shoppingItemController.text,
+                ),
+              ),
+              body: state.when(
+                loading: () => SimpleLoadingIndicator(),
+                loaded: (categories) {
+                  return Padding(
                     padding: const EdgeInsets.all(Spaces.space_4),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -129,9 +136,9 @@ class _ShoppingItemDetailsScreenState extends State<ShoppingItemDetailsScreen> {
                         ),
                       ],
                     ),
-                  ),
-                );
-              });
+                  );
+                },
+              ));
         },
       ),
     );

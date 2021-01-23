@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2021-01-03T19:52:34.442767",
+  "@@last_modified": "2021-01-23T15:46:38.025336",
   "appName": "Shopping List",
   "@appName": {
     "type": "Text",
@@ -127,38 +127,58 @@
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionGeneralTitle": "General",
-  "@settingsSectionGeneralTitle": {
+  "settingsGeneralTitle": "General",
+  "@settingsGeneralTitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionGeneralCategoryTitle": "Categories",
-  "@settingsSectionGeneralCategoryTitle": {
+  "settingsGeneralCategoryTitle": "Categories",
+  "@settingsGeneralCategoryTitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionGeneralCategorySubtitle": "Edit your categories",
-  "@settingsSectionGeneralCategorySubtitle": {
+  "settingsGeneralCategorySubtitle": "Edit your categories",
+  "@settingsGeneralCategorySubtitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionGeneralAllItemsTitle": "Articles",
-  "@settingsSectionGeneralAllItemsTitle": {
+  "settingsGeneralAllItemsTitle": "Articles",
+  "@settingsGeneralAllItemsTitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionGeneralAllItemsSubtitle": "Edit all articles",
-  "@settingsSectionGeneralAllItemsSubtitle": {
+  "settingsGeneralAllItemsSubtitle": "Edit all articles",
+  "@settingsGeneralAllItemsSubtitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionAppearanceTitle": "Appearance",
-  "@settingsSectionAppearanceTitle": {
+  "settingsAppearanceTitle": "Appearance",
+  "@settingsAppearanceTitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionAppearanceDarkTheme": "Dark theme",
-  "@settingsSectionAppearanceDarkTheme": {
+  "settingsAppearanceSwitchTitleDarkTheme": "Theme",
+  "@settingsAppearanceSwitchTitleDarkTheme": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsAppearanceThemeDark": "Dark theme",
+  "@settingsAppearanceThemeDark": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsAppearanceThemeLight": "Light theme",
+  "@settingsAppearanceThemeLight": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsInfoTitle": "Info",
+  "@settingsInfoTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsInfoAppVersion": "App-Version",
+  "@settingsInfoAppVersion": {
     "type": "Text",
     "context": " settings "
   },

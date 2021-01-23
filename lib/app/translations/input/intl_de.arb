@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2021-01-03T19:52:34.442767",
+  "@@last_modified": "2021-01-23T15:46:38.025336",
   "appName": "Einkaufsliste",
   "@appName": {
     "type": "Text",
@@ -127,38 +127,58 @@
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionGeneralTitle": "Allgemein",
-  "@settingsSectionGeneralTitle": {
+  "settingsGeneralTitle": "Allgemein",
+  "@settingsGeneralTitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionGeneralCategoryTitle": "Kategorien",
-  "@settingsSectionGeneralCategoryTitle": {
+  "settingsGeneralCategoryTitle": "Kategorien",
+  "@settingsGeneralCategoryTitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionGeneralCategorySubtitle": "Kategorien bearbeiten",
-  "@settingsSectionGeneralCategorySubtitle": {
+  "settingsGeneralCategorySubtitle": "Kategorien bearbeiten",
+  "@settingsGeneralCategorySubtitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionGeneralAllItemsTitle": "Artikel",
-  "@settingsSectionGeneralAllItemsTitle": {
+  "settingsGeneralAllItemsTitle": "Artikel",
+  "@settingsGeneralAllItemsTitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionGeneralAllItemsSubtitle": "Artikel bearbeiten",
-  "@settingsSectionGeneralAllItemsSubtitle": {
+  "settingsGeneralAllItemsSubtitle": "Artikel bearbeiten",
+  "@settingsGeneralAllItemsSubtitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionAppearanceTitle": "Erscheinung",
-  "@settingsSectionAppearanceTitle": {
+  "settingsAppearanceTitle": "Erscheinung",
+  "@settingsAppearanceTitle": {
     "type": "Text",
     "context": " settings "
   },
-  "settingsSectionAppearanceDarkTheme": "Dunkles Design",
-  "@settingsSectionAppearanceDarkTheme": {
+  "settingsAppearanceSwitchTitleDarkTheme": "Design",
+  "@settingsAppearanceSwitchTitleDarkTheme": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsAppearanceThemeDark": "Dunkles Design",
+  "@settingsAppearanceThemeDark": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsAppearanceThemeLight": "Helles Design",
+  "@settingsAppearanceThemeLight": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsInfoTitle": "Info",
+  "@settingsInfoTitle": {
+    "type": "Text",
+    "context": " settings "
+  },
+  "settingsInfoAppVersion": "App-Version",
+  "@settingsInfoAppVersion": {
     "type": "Text",
     "context": " settings "
   },

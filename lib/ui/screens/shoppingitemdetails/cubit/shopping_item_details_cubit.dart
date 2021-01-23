@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -16,11 +18,12 @@ part 'shopping_item_details_state.dart';
 class ShoppingItemDetailsCubit extends Cubit<ShoppingItemDetailsState> {
   final CategoriesRepository _categoriesRepository;
   final ShoppingListRepository _shoppingListRepository;
+  StreamSubscription _categorySubscription;
 
   ShoppingItemDetailsCubit(
       this._categoriesRepository, this._shoppingListRepository)
       : super(ShoppingItemDetailsLoading()) {
-    _categoriesRepository.getAndListenToCategories().listen((event) {
+    _categorySubscription = _categoriesRepository.getAndListenToCategories().listen((event) {
       emit(ShoppingItemDetailsLoaded(categories: event));
     });
   }
@@ -37,5 +40,14 @@ class ShoppingItemDetailsCubit extends Cubit<ShoppingItemDetailsState> {
     emit(ShoppingItemDetailsLoading());
     return _shoppingListRepository.deleteShoppingItem(
         item, editType.getDocument());
+  }
+
+  @override
+  Future<void> close() {
+    if (_categorySubscription != null) {
+      _categorySubscription.cancel();
+      _categorySubscription = null;
+    }
+    return super.close();
   }
 }

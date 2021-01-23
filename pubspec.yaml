@@ -27,25 +27,25 @@ dependencies:
     sdk: flutter
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.2
   # localization
-  intl: ^0.16.1
+  intl: ^0.17.0-nullsafety.2
   intl_utils: ^1.9.0
   # import from google sheet to arb
   gsheet_to_arb: ^0.1.11
   # helps to implement BLoC pattern
   flutter_bloc: ^6.1.1
   # service locator (DI)
-  get_it: ^5.0.1
+  get_it: ^6.0.0-nullsafety.2
   # convenient code generator for get_it
-  injectable: ^1.0.5
+  injectable: ^1.0.7
   # annotation for the freezed code generator
   freezed_annotation: ^0.12.0
   # storage
-  hive: ^1.4.4+1
+  hive: ^1.5.0-pre
   hive_flutter: ^0.3.1
   # shared preferences
-  streaming_shared_preferences: ^1.0.1
+  streaming_shared_preferences: ^1.0.2
   # pair / tuple support
   tuple: ^1.0.3
   # firebase
@@ -54,15 +54,16 @@ dependencies:
   firebase_crashlytics: ^0.4.0+1
   cloud_firestore: ^0.16.0
   # autocomplete
-  flutter_typeahead: ^1.9.1
+  flutter_typeahead: ^2.0.0
   # settings
   settings_ui: ^0.5.0
+  flutter_settings_screens: ^0.2.1+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   # convenient code generator for get_it
-  injectable_generator: ^1.0.6
+  injectable_generator: ^1.0.7
   # tool to run code generator
   build_runner: ^1.10.3
   # data / sealed class
@@ -74,6 +75,8 @@ dev_dependencies:
 dependency_overrides:
   analyzer: ^0.40.1
   intl: ^0.17.0-nullsafety.2
+  injectable: ^1.0.7
+  get_it: ^6.0.0-nullsafety.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -14,9 +14,9 @@ part 'menu_list_state.dart';
 @Injectable()
 class MenuListCubit extends Cubit<MenuListState> {
   final MenuRepository _menuRepository;
-  StreamSubscription subscription;
+  StreamSubscription _subscription;
   MenuListCubit(this._menuRepository) : super(MenuLoading()) {
-    subscription = _menuRepository.getAndListenToMenuPlan().listen((event) {
+    _subscription = _menuRepository.getAndListenToMenuPlan().listen((event) {
       emit(MenuLoaded(menuPlan: event));
     });
   }
@@ -30,9 +30,9 @@ class MenuListCubit extends Cubit<MenuListState> {
   @override
   Future<void> close() {
     _menuRepository.pauseStreamSubscription();
-    if (subscription != null) {
-      subscription.cancel();
-      subscription = null;
+    if (_subscription != null) {
+      _subscription.cancel();
+      _subscription = null;
     }
     return super.close();
   }

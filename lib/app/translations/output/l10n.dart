@@ -286,70 +286,110 @@ class S {
   }
 
   /// `Allgemein`
-  String get settingsSectionGeneralTitle {
+  String get settingsGeneralTitle {
     return Intl.message(
       'Allgemein',
-      name: 'settingsSectionGeneralTitle',
+      name: 'settingsGeneralTitle',
       desc: '',
       args: [],
     );
   }
 
   /// `Kategorien`
-  String get settingsSectionGeneralCategoryTitle {
+  String get settingsGeneralCategoryTitle {
     return Intl.message(
       'Kategorien',
-      name: 'settingsSectionGeneralCategoryTitle',
+      name: 'settingsGeneralCategoryTitle',
       desc: '',
       args: [],
     );
   }
 
   /// `Kategorien bearbeiten`
-  String get settingsSectionGeneralCategorySubtitle {
+  String get settingsGeneralCategorySubtitle {
     return Intl.message(
       'Kategorien bearbeiten',
-      name: 'settingsSectionGeneralCategorySubtitle',
+      name: 'settingsGeneralCategorySubtitle',
       desc: '',
       args: [],
     );
   }
 
   /// `Artikel`
-  String get settingsSectionGeneralAllItemsTitle {
+  String get settingsGeneralAllItemsTitle {
     return Intl.message(
       'Artikel',
-      name: 'settingsSectionGeneralAllItemsTitle',
+      name: 'settingsGeneralAllItemsTitle',
       desc: '',
       args: [],
     );
   }
 
   /// `Artikel bearbeiten`
-  String get settingsSectionGeneralAllItemsSubtitle {
+  String get settingsGeneralAllItemsSubtitle {
     return Intl.message(
       'Artikel bearbeiten',
-      name: 'settingsSectionGeneralAllItemsSubtitle',
+      name: 'settingsGeneralAllItemsSubtitle',
       desc: '',
       args: [],
     );
   }
 
   /// `Erscheinung`
-  String get settingsSectionAppearanceTitle {
+  String get settingsAppearanceTitle {
     return Intl.message(
       'Erscheinung',
-      name: 'settingsSectionAppearanceTitle',
+      name: 'settingsAppearanceTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Design`
+  String get settingsAppearanceSwitchTitleDarkTheme {
+    return Intl.message(
+      'Design',
+      name: 'settingsAppearanceSwitchTitleDarkTheme',
       desc: '',
       args: [],
     );
   }
 
   /// `Dunkles Design`
-  String get settingsSectionAppearanceDarkTheme {
+  String get settingsAppearanceThemeDark {
     return Intl.message(
       'Dunkles Design',
-      name: 'settingsSectionAppearanceDarkTheme',
+      name: 'settingsAppearanceThemeDark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Helles Design`
+  String get settingsAppearanceThemeLight {
+    return Intl.message(
+      'Helles Design',
+      name: 'settingsAppearanceThemeLight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Info`
+  String get settingsInfoTitle {
+    return Intl.message(
+      'Info',
+      name: 'settingsInfoTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App-Version`
+  String get settingsInfoAppVersion {
+    return Intl.message(
+      'App-Version',
+      name: 'settingsInfoAppVersion',
       desc: '',
       args: [],
     );
