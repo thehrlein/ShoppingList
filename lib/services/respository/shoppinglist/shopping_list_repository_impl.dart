@@ -32,7 +32,7 @@ class ShoppingListRepositoryImpl implements ShoppingListRepository {
   }
 
   @override
-  Future<void> cancelStreamSubscription() {
+  void cancelStreamSubscription() {
     return _firestoreDatasource.cancelShoppingStreamSubscription();
   }
 

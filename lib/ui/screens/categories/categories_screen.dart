@@ -24,21 +24,27 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     return BlocBuilder<CategoriesCubit, CategoriesState>(
       cubit: widget.categoriesCubit,
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(S.of(context).categoriesTitle),
-          ),
-          body: RefreshIndicator(
-            child: state.when(
-              loading: () => SimpleLoadingIndicator(),
-              loaded: _showCategories,
+        return WillPopScope(
+          onWillPop: () async {
+            widget.categoriesCubit.close();
+            return true;
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(S.of(context).categoriesTitle),
             ),
-            onRefresh: () => widget.categoriesCubit.refreshCategories(),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => _onFabClicked(context),
-            tooltip: S.of(context).menuListFabTooltip,
-            child: const Icon(Icons.add),
+            body: RefreshIndicator(
+              child: state.when(
+                loading: () => SimpleLoadingIndicator(),
+                loaded: _showCategories,
+              ),
+              onRefresh: () => widget.categoriesCubit.refreshCategories(),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () => _onFabClicked(context),
+              tooltip: S.of(context).menuListFabTooltip,
+              child: const Icon(Icons.add),
+            ),
           ),
         );
       },

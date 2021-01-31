@@ -44,6 +44,7 @@ class ShoppingItemDetailsCubit extends Cubit<ShoppingItemDetailsState> {
 
   @override
   Future<void> close() {
+    _categoriesRepository.cancelSubscription();
     if (_categorySubscription != null) {
       _categorySubscription.cancel();
       _categorySubscription = null;

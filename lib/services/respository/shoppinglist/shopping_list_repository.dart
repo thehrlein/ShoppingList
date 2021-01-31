@@ -9,7 +9,7 @@ abstract class ShoppingListRepository {
   Future<List<ShoppingListValueItem>> getSuggestions(String query);
   Future<ShoppingList> getShoppingList(String document);
   Stream<ShoppingList> getAndListenToShoppingList(String document);
-  Future<void> cancelStreamSubscription();
+  void cancelStreamSubscription();
   Future<void> saveShoppingItem(ShoppingListValueItem shoppingItem);
   Future<void> editShoppingItem(ShoppingItemEditType editType, ShoppingListValueItem oldItem, ShoppingListValueItem newItem);
   Future<void> deleteShoppingItem(ShoppingListValueItem shoppingItem, String document);

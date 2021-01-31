@@ -41,3 +41,4 @@ app.*.symbols
 app.*.map.json
 .metadata
 gsheet_to_arb.yaml
+local.properties

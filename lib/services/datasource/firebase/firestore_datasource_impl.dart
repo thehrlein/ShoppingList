@@ -32,6 +32,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
 
   StreamSubscription _activeShoppingListSubscription;
   StreamSubscription _menuListSubscription;
+  StreamSubscription _categoriesSubscription;
 
   FirestoreDatasourceImpl() {
     menuRef = firestore.collection(Constants.COLLECTION_MENU);
@@ -106,12 +107,11 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   }
 
   @override
-  Future<void> cancelShoppingStreamSubscription() {
+  void cancelShoppingStreamSubscription() {
     if (_activeShoppingListSubscription != null) {
       _activeShoppingListSubscription.cancel();
       _activeShoppingListSubscription = null;
     }
-    return Future.value();
   }
 
   @override
@@ -207,8 +207,8 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
           Map<String, dynamic> map = element.data();
           String dish = map[Constants.FIELD_DISH];
           if (dish != null) {
-            planItems
-                .add(MenuPlanItem(day: element.id.getMenuPlanDay(), dish: dish));
+            planItems.add(
+                MenuPlanItem(day: element.id.getMenuPlanDay(), dish: dish));
           }
         });
         _menuPlanController.add(MenuPlan(plan: planItems));
@@ -257,7 +257,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
 
   @override
   Stream<Set<Category>> getAndListenToCategories() {
-    categoryRef.snapshots().listen((event) {
+    _categoriesSubscription = categoryRef.snapshots().listen((event) {
       List<Category> categories = [];
       event.docs.forEach((element) {
         Map<String, dynamic> map = element.data();
@@ -285,5 +285,13 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
       element.reference.delete();
     });
     return Future.value();
+  }
+
+  @override
+  void cancelCategoryStreamSubscription() {
+    if (_categoriesSubscription != null) {
+      _categoriesSubscription.cancel();
+      _categoriesSubscription = null;
+    }
   }
 }

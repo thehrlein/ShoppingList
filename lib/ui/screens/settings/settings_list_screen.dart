@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import 'package:settings_ui/settings_ui.dart';
 import 'package:shopping_list/app/navigation/routes.dart';
 import 'package:shopping_list/app/theme/app_theme_cubit.dart';
 import 'package:shopping_list/app/theme/app_theme_dark.dart';
 import 'package:shopping_list/app/theme/app_theme_state.dart';
 import 'package:shopping_list/app/translations/output/l10n.dart';
-import 'package:shopping_list/app/utils/auto_bloc_provider.dart';
 import 'package:shopping_list/app/utils/dimens.dart';
 
 class SettingsListScreen extends StatefulWidget {

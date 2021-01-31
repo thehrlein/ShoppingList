@@ -31,4 +31,9 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   Future<void> saveCategory(Category category) {
     return _firestoreDatasource.saveCategory(category);
   }
+
+  @override
+  void cancelSubscription() {
+    return _firestoreDatasource.cancelCategoryStreamSubscription();
+  }
 }

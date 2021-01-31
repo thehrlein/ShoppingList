@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -11,9 +13,10 @@ part 'categories_state.dart';
 @Injectable()
 class CategoriesCubit extends Cubit<CategoriesState> {
   final CategoriesRepository _categoriesRepository;
+  StreamSubscription _categorySubscription;
 
   CategoriesCubit(this._categoriesRepository) : super(CategoriesLoading()) {
-    _categoriesRepository.getAndListenToCategories().listen((event) {
+    _categorySubscription = _categoriesRepository.getAndListenToCategories().listen((event) {
       emit(CategoriesLoaded(categories: event));
     });
   }
@@ -30,5 +33,15 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   Future<void> deleteCategory(Category category) {
     return _categoriesRepository.deleteCategory(category);
+  }
+
+  @override
+  Future<void> close() {
+    _categoriesRepository.cancelSubscription();
+    if (_categorySubscription != null) {
+      _categorySubscription.cancel();
+      _categorySubscription = null;
+    }
+    return super.close();
   }
 }
