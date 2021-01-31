@@ -1,7 +1,6 @@
 import 'package:shopping_list/models/categories/Category.dart';
 
 abstract class CategoriesRepository {
-
   Future<List<Category>> getCategories();
 
   Stream<List<Category>> getAndListenToCategories();

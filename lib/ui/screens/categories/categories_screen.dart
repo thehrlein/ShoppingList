@@ -113,36 +113,39 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   void _onFabClicked(BuildContext context) {
     showDialog(
       context: context,
-      child: new AlertDialog(
-        contentPadding: const EdgeInsets.all(Spaces.space_4),
-        content: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                autofocus: true,
-                controller: _addCategoryController,
-                decoration: InputDecoration(
-                  labelText: S.of(context).categoriesAddDialogTitle,
-                  border: OutlineInputBorder(),
+      builder: (context) {
+        return new AlertDialog(
+          contentPadding: const EdgeInsets.all(Spaces.space_4),
+          content: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  autofocus: true,
+                  controller: _addCategoryController,
+                  decoration: InputDecoration(
+                    labelText: S.of(context).categoriesAddDialogTitle,
+                    border: OutlineInputBorder(),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: Text(S.of(context).categoriesAddDialogButtonCancel),
-            onPressed: () {
-              Routes.pop(context);
-            },
+            ],
           ),
-          TextButton(
-            child: Text(S.of(context).categoriesAddDialogButtonSave),
-            style: TextButton.styleFrom(primary: Theme.of(context).accentColor),
-            onPressed: () => _saveCategory(context),
-          )
-        ],
-      ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(S.of(context).categoriesAddDialogButtonCancel),
+              onPressed: () {
+                Routes.pop(context);
+              },
+            ),
+            TextButton(
+              child: Text(S.of(context).categoriesAddDialogButtonSave),
+              style:
+                  TextButton.styleFrom(primary: Theme.of(context).accentColor),
+              onPressed: () => _saveCategory(context),
+            )
+          ],
+        );
+      },
     );
   }
 
@@ -159,24 +162,26 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   void _onDeleteClicked(Category category) {
     showDialog(
         context: context,
-        child: AlertDialog(
-          title: Text(S.of(context).categoriesDeleteDialogTitle),
-          actions: [
-            TextButton(
-              child: Text(S.of(context).categoriesDeleteDialogButtonCancel),
-              onPressed: () {
-                Routes.pop(context);
-              },
-            ),
-            TextButton(
-              child: Text(S.of(context).categoriesDeleteDialogButtonDelete),
-              style:
-                  TextButton.styleFrom(primary: Theme.of(context).accentColor),
-              onPressed: () => _deleteCategory(category)
-                  .then((value) => Routes.pop(context)),
-            )
-          ],
-        ));
+        builder: (context) {
+          return AlertDialog(
+            title: Text(S.of(context).categoriesDeleteDialogTitle),
+            actions: [
+              TextButton(
+                child: Text(S.of(context).categoriesDeleteDialogButtonCancel),
+                onPressed: () {
+                  Routes.pop(context);
+                },
+              ),
+              TextButton(
+                child: Text(S.of(context).categoriesDeleteDialogButtonDelete),
+                style: TextButton.styleFrom(
+                    primary: Theme.of(context).accentColor),
+                onPressed: () => _deleteCategory(category)
+                    .then((value) => Routes.pop(context)),
+              )
+            ],
+          );
+        });
   }
 
   Future<void> _deleteCategory(Category category) {

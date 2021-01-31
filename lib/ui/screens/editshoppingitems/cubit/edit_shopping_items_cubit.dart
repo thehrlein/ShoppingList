@@ -34,8 +34,11 @@ class EditShoppingItemsCubit extends Cubit<EditShoppingItemsState> {
 
   @override
   Future<void> close() {
-    _shoppingListSubscription.cancel();
     _shoppingListRepository.cancelStreamSubscription();
+    if (_shoppingListSubscription != null) {
+      _shoppingListSubscription.cancel();
+      _shoppingListSubscription = null;
+    }
     return super.close();
   }
 

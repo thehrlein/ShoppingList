@@ -33,7 +33,7 @@ class _ShoppingItemDetailsScreenState extends State<ShoppingItemDetailsScreen> {
           SnackBar snackBar = SnackBar(
             content: Text("FAILURE"),
           );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
         } else {
           _initialShoppingValueItem = editModel.shoppingItem;
           editType = editModel.itemType;

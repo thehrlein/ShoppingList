@@ -1,9 +1,11 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shopping_list/app/theme/app_theme_cubit.dart';
-import 'package:shopping_list/app/theme/app_theme_dark.dart';
 import 'package:shopping_list/app/theme/app_theme_state.dart';
 import 'package:shopping_list/app/utils/auto_bloc_provider.dart';
 import 'package:shopping_list/app/utils/locales.dart';
