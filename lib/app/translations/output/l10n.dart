@@ -105,10 +105,10 @@ class S {
     );
   }
 
-  /// `Sontag`
+  /// `Sonntag`
   String get dayNameSunday {
     return Intl.message(
-      'Sontag',
+      'Sonntag',
       name: 'dayNameSunday',
       desc: '',
       args: [],

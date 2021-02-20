@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2021-01-23T15:46:38.025336",
+  "@@last_modified": "2021-02-20T15:03:13.893750",
   "appName": "Einkaufsliste",
   "@appName": {
     "type": "Text",
@@ -37,7 +37,7 @@
     "type": "Text",
     "context": " common"
   },
-  "dayNameSunday": "Sontag",
+  "dayNameSunday": "Sonntag",
   "@dayNameSunday": {
     "type": "Text",
     "context": " common"

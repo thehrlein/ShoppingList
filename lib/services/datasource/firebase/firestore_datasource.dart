@@ -27,15 +27,13 @@ abstract class FirestoreDatasource {
   /// menu
   Future<MenuPlan> getMenuPlan();
 
-  Stream<MenuPlan> getAndListenToMenuPlan();
-
   Future<void> saveDish(MenuPlanItem menuPlanItem);
+
+  void saveNewMenuOrderedList(List<MenuPlanItem> items);
 
   Future<void> deleteDish(MenuPlanDay day);
 
   Future<List<Category>> getCategories();
-
-  void pauseMenuStreamSubscription();
 
   /// categories
   Stream<Set<Category>> getAndListenToCategories();
@@ -45,5 +43,4 @@ abstract class FirestoreDatasource {
   Future<void> deleteCategory(Category category);
 
   void cancelCategoryStreamSubscription();
-
 }

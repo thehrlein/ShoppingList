@@ -14,6 +14,7 @@ mixin Constants {
   static const String DOCUMENT_ACTIVE = "active";
 
   // fields
+  static const String FIELD_INDEX = "index";
   static const String FIELD_DISH = "dish";
   static const String FIELD_NAME = "name";
   static const String FIELD_CATEGORY = "category";

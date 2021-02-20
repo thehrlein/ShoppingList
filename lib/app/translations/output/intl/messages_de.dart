@@ -33,7 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "dayNameFriday" : MessageLookupByLibrary.simpleMessage("Freitag"),
     "dayNameMonday" : MessageLookupByLibrary.simpleMessage("Montag"),
     "dayNameSaturday" : MessageLookupByLibrary.simpleMessage("Samstag"),
-    "dayNameSunday" : MessageLookupByLibrary.simpleMessage("Sontag"),
+    "dayNameSunday" : MessageLookupByLibrary.simpleMessage("Sonntag"),
     "dayNameThursday" : MessageLookupByLibrary.simpleMessage("Donnerstag"),
     "dayNameTuesday" : MessageLookupByLibrary.simpleMessage("Dienstag"),
     "dayNameWednesday" : MessageLookupByLibrary.simpleMessage("Mittwoch"),

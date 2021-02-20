@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 
 import '../theme/app_theme_cubit.dart';
+import '../../ui/screens/settings/cubit/app_version_cubit.dart';
 import '../../ui/screens/categories/cubit/categories_cubit.dart';
 import '../../services/respository/categories/categories_repository.dart';
 import '../../services/respository/categories/categories_repository_impl.dart';
@@ -37,6 +38,7 @@ GetIt $initGetIt(
   EnvironmentFilter environmentFilter,
 }) {
   final gh = GetItHelper(get, environment, environmentFilter);
+  gh.factory<AppVersionCubit>(() => AppVersionCubit());
   gh.lazySingleton<SettingsManager>(() =>
       SettingsManagerImpl(preferences: get<StreamingSharedPreferences>()));
   gh.factory<SplashCubit>(() => SplashCubit());

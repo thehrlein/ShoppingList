@@ -17,11 +17,6 @@ class MenuRepositoryImpl implements MenuRepository {
   }
 
   @override
-  Stream<MenuPlan> getAndListenToMenuPlan() {
-    return _firestoreDatasource.getAndListenToMenuPlan();
-  }
-
-  @override
   Future<void> saveDish(MenuPlanItem menuPlanItem) {
     return _firestoreDatasource.saveDish(menuPlanItem);
   }
@@ -32,7 +27,9 @@ class MenuRepositoryImpl implements MenuRepository {
   }
 
   @override
-  void pauseStreamSubscription() {
-    return _firestoreDatasource.pauseMenuStreamSubscription();
+  void saveNewOrderedList(List<MenuPlanItem> items) {
+    _firestoreDatasource.saveNewMenuOrderedList(items);
   }
+
+
 }

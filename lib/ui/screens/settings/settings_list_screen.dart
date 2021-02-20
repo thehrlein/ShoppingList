@@ -6,7 +6,11 @@ import 'package:shopping_list/app/theme/app_theme_cubit.dart';
 import 'package:shopping_list/app/theme/app_theme_dark.dart';
 import 'package:shopping_list/app/theme/app_theme_state.dart';
 import 'package:shopping_list/app/translations/output/l10n.dart';
+import 'package:shopping_list/app/utils/auto_bloc_provider.dart';
 import 'package:shopping_list/app/utils/dimens.dart';
+import 'package:shopping_list/ui/screens/settings/cubit/app_version_cubit.dart';
+
+import 'cubit/app_version_state.dart';
 
 class SettingsListScreen extends StatefulWidget {
   @override
@@ -71,9 +75,14 @@ class _SettingsListScreenState extends State<SettingsListScreen> {
                 SettingsGroup(
                   title: S.of(context).settingsInfoTitle,
                   children: [
-                    SimpleSettingsTile(
-                      title: S.of(context).settingsInfoAppVersion,
-                      subtitle: "0.0.1",
+                    AutoBlocProvider<AppVersionCubit>(
+                      child: BlocBuilder<AppVersionCubit, AppVersionState>(
+                          builder: (context, state) {
+                        return SimpleSettingsTile(
+                          title: S.of(context).settingsInfoAppVersion,
+                          subtitle: state.when(loading: () => "", state: (info) => "${info.appVersion} (${info.buildNumber})"),
+                        );
+                      }),
                     )
                   ],
                 )

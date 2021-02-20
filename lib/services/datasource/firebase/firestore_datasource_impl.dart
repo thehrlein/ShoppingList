@@ -17,21 +17,16 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   CollectionReference shoppingListRef;
   CollectionReference categoryRef;
 
-  final StreamController<MenuPlan> _menuPlanController =
-      StreamController.broadcast();
   final StreamController<List<ShoppingListValueItem>> _shoppingListController =
       StreamController.broadcast();
   final StreamController<Set<Category>> _categoriesController =
       StreamController.broadcast();
-
-  Stream get menuStream => _menuPlanController.stream;
 
   Stream get shoppingStream => _shoppingListController.stream;
 
   Stream get categoriesStream => _categoriesController.stream;
 
   StreamSubscription _activeShoppingListSubscription;
-  StreamSubscription _menuListSubscription;
   StreamSubscription _categoriesSubscription;
 
   FirestoreDatasourceImpl() {
@@ -191,47 +186,33 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
 
     querySnapshot.docs.forEach((element) {
       Map<String, dynamic> map = element.data();
+      int index = map[Constants.FIELD_INDEX];
       String dish = map[Constants.FIELD_DISH];
-      planItems.add(MenuPlanItem(day: element.id.getMenuPlanDay(), dish: dish));
+      planItems.add(MenuPlanItem(
+          index: index, day: element.id.getMenuPlanDay(), dish: dish));
     });
+
+    planItems
+        .sort((a, b) => a.index.compareTo(b.index));
 
     return MenuPlan(plan: planItems);
   }
 
   @override
-  Stream<MenuPlan> getAndListenToMenuPlan() {
-    if (_menuListSubscription == null) {
-      _menuListSubscription = menuRef.snapshots().listen((event) {
-        List<MenuPlanItem> planItems = [];
-        event.docs.forEach((element) {
-          Map<String, dynamic> map = element.data();
-          String dish = map[Constants.FIELD_DISH];
-          if (dish != null) {
-            planItems.add(
-                MenuPlanItem(day: element.id.getMenuPlanDay(), dish: dish));
-          }
-        });
-        _menuPlanController.add(MenuPlan(plan: planItems));
-      });
-    } else {
-      _menuListSubscription.resume();
-      getMenuPlan().then((value) => _menuPlanController.add(value));
-    }
-
-    return menuStream;
-  }
-
-  @override
-  void pauseMenuStreamSubscription() {
-    if (_menuListSubscription != null) {
-      _menuListSubscription.pause();
-    }
+  void saveNewMenuOrderedList(List<MenuPlanItem> items) {
+    items.forEach((element) {
+      menuRef.doc(element.day.toString()).set({
+        Constants.FIELD_INDEX: element.index
+      }, SetOptions(merge: true));
+    });
   }
 
   @override
   Future<void> saveDish(MenuPlanItem menuPlanItem) {
-    return menuRef.doc(menuPlanItem.day.toString()).set(
-        {Constants.FIELD_DISH: menuPlanItem.dish}, SetOptions(merge: true));
+    return menuRef.doc(menuPlanItem.day.toString()).set({
+      Constants.FIELD_INDEX: menuPlanItem.index,
+      Constants.FIELD_DISH: menuPlanItem.dish,
+    }, SetOptions(merge: true));
   }
 
   @override

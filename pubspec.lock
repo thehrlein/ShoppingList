@@ -602,6 +602,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.3"
+  package_info:
+    dependency: "direct main"
+    description:
+      name: package_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3+4"
   path:
     dependency: transitive
     description:
@@ -721,13 +728,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  settings_ui:
+  rxdart:
     dependency: "direct main"
     description:
-      name: settings_ui
+      name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.0"
+    version: "0.25.0"
   shared_preferences:
     dependency: transitive
     description:

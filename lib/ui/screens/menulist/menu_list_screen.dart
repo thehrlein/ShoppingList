@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shopping_list/app/navigation/routes.dart';
 import 'package:shopping_list/app/translations/output/l10n.dart';
 import 'package:shopping_list/app/utils/auto_bloc_provider.dart';
@@ -12,81 +13,96 @@ import 'package:shopping_list/ui/widgets/loading.dart';
 import 'package:shopping_list/ui/widgets/small_divider.dart';
 
 class MenuListScreen extends StatefulWidget {
+  final menuListCubit = GetIt.instance.get<MenuListCubit>();
+
   @override
   State<StatefulWidget> createState() => _MenuListScreenState();
 }
 
 class _MenuListScreenState extends State<MenuListScreen> {
+  List<MenuPlanItem> _localItems;
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMenuListItems();
+  }
+
+  Future<void> _loadMenuListItems() {
+    return Future.delayed(Duration.zero)
+        .then((value) => widget.menuListCubit.getMenuListItems().then((value) {
+              setState(() {
+                _loading = false;
+                _localItems = value.plan;
+              });
+            }));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AutoBlocProvider<MenuListCubit>(
-      child: BlocBuilder<MenuListCubit, MenuListState>(
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(S.of(context).menuListTitle),
-            ),
-            body: RefreshIndicator(
-              child: state.when(
-                loading: () => SimpleLoadingIndicator(),
-                loaded: (plan) => _showMenuList(plan),
-              ),
-              onRefresh: () => context.read<MenuListCubit>().refreshMenuList(),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => Routes.openMenuDetails(context),
-              tooltip: S.of(context).menuListFabTooltip,
-              child: const Icon(Icons.add),
-            ),
-          );
-        },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(S.of(context).menuListTitle),
+      ),
+      body: _loading ? SimpleLoadingIndicator() : _showMenuList(_localItems),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Routes.openMenuDetails(context),
+        tooltip: S.of(context).menuListFabTooltip,
+        child: const Icon(Icons.add),
       ),
     );
   }
 
-  Widget _showMenuList(MenuPlan menuPlan) {
-    List<MenuPlanItem> nonNullList = menuPlan.plan.where((element) => element.day != null && element.dish != null).toList();
-    List<MenuPlanItem> filteredItems = [];
-    for (var day in MenuPlanDay.values) {
-      MenuPlanItem item = nonNullList.firstWhere((element) => element.day == day, orElse: () => null);
-      if (item != null) {
-        filteredItems.add(item);
+  ReorderableListView _showMenuList(List<MenuPlanItem> items) {
+    List<MenuPlanItem> nonNullList = items
+        .where((element) => element.day != null && element.dish != null)
+        .toList();
+    return ReorderableListView(
+        children: nonNullList
+            .map(
+              (e) => ListTile(
+                key: Key(e.day.toString()),
+                title: Text(e.day.getLocalizedDay(context)),
+                subtitle: Text(e.dish),
+                trailing: Icon(Icons.menu),
+                onTap: () => Routes.openMenuDetails(context, menuPlanItem: e),
+              ),
+            )
+            .toList(),
+        onReorder: _onReorder);
+  }
+
+  void _onReorder(int start, int current) {
+    setState(() {
+      if (start < current) {
+        int end = current - 1;
+        MenuPlanItem startItem = _localItems[start];
+        int i = 0;
+        int local = start;
+        do {
+          _localItems[local] = _localItems[++local];
+          i++;
+        } while (i < end - start);
+        _localItems[end] = startItem;
       }
-    }
-    return ListView.separated(
-      itemBuilder: (context, index) {
-        MenuPlanItem item = filteredItems[index];
-        return _createMenuPlanItem(item);
-      },
-      separatorBuilder: (context, index) => SmallDivider(),
-      itemCount: filteredItems.length,
-    );
+      // dragging from bottom to top
+      else if (start > current) {
+        MenuPlanItem startItem = _localItems[start];
+        for (int i = start; i > current; i--) {
+          _localItems[i] = _localItems[i - 1];
+        }
+        _localItems[current] = startItem;
+      }
+
+      _localItems.forEach((element) {
+        element.index = _localItems.indexOf(element);
+      });
+      _saveNewOrder();
+    });
   }
 
-  Widget _createMenuPlanItem(MenuPlanItem item) {
-    return InkWell(
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(Spaces.space_4),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                item.day.getLocalizedDay(context),
-                style: Theme.of(context).textTheme.caption.copyWith(
-                  fontSize: FontSizes.font_size_subtitle_1
-                ),
-              ),
-              Text(
-                item.dish,
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-            ],
-          ),
-        ),
-      ),
-      onTap: () => Routes.openMenuDetails(context, menuPlanItem: item),
-    );
+  void _saveNewOrder() {
+    widget.menuListCubit.saveNewOrderedList(_localItems);
   }
 }
