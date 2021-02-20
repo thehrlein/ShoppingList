@@ -35,7 +35,7 @@ jobs:
             }
     - task: FlutterInstall@0
       inputs:
-        channel: 'stable'
+        channel: 'beta'
         version: 'latest'
     
     - task: FlutterBuild@0
