@@ -1,0 +1,50 @@
+# flutter build
+name: $(Date:yyyyMMdd)$(Rev:rr)
+
+trigger:
+  - develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+  - job: Android
+    pool:
+      vmImage: 'macOS-latest'
+    steps:
+    - task: PowerShell@2
+      env:
+        SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+      inputs:
+        targetType: 'inline'
+        script: |
+          $url = "{0}{1}/_apis/build/builds/$env:BUILD_BUILDID/changes?api-version=5.1" -f $env:SYSTEM_COLLECTIONURI, $env:SYSTEM_TEAMPROJECT
+
+            $changelogPath = "$env:BUILD_ARTIFACTSTAGINGDIRECTORY/changelog"
+
+            $changes = Invoke-RestMethod -Uri $url -Method Get -Headers @{
+                Authorization = "Bearer $env:SYSTEM_ACCESSTOKEN"
+            }
+
+            Write-Host "Pipeline = $($changes | ConvertTo-Json -Depth 100)"
+
+            ## Generate Output
+            "Last Commits:" | Add-Content -Path $changelogPath
+            foreach($change in $changes.value) {
+              "* $($change.message)" | Add-Content -Path $changelogPath
+            }
+    - task: FlutterInstall@0
+      inputs:
+        channel: 'stable'
+        version: 'latest'
+    
+    - task: FlutterBuild@0
+      inputs:
+        target: apk
+        debugMode: true
+    - task: CopyFiles@2
+      inputs:
+        contents: '**/*.apk'
+        targetFolder: '$(build.artifactStagingDirectory)'
+    - task: PublishBuildArtifacts@1  
+
