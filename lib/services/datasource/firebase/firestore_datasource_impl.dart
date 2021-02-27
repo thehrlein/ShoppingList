@@ -186,11 +186,12 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
 
     querySnapshot.docs.forEach((element) {
       Map<String, dynamic> map = element.data();
-      int index = map[Constants.FIELD_INDEX];
+      int index = map[Constants.FIELD_INDEX] ?? -1;
       String dish = map[Constants.FIELD_DISH];
       planItems.add(MenuPlanItem(
           index: index, day: element.id.getMenuPlanDay(), dish: dish));
     });
+
 
     planItems
         .sort((a, b) => a.index.compareTo(b.index));

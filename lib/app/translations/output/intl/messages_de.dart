@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "categoriesFabTooltip" : MessageLookupByLibrary.simpleMessage("Kategorie hinzufügen"),
     "categoriesTitle" : MessageLookupByLibrary.simpleMessage("Kategorien"),
     "dayNameFriday" : MessageLookupByLibrary.simpleMessage("Freitag"),
+    "dayNameIdeas" : MessageLookupByLibrary.simpleMessage("Ideen"),
     "dayNameMonday" : MessageLookupByLibrary.simpleMessage("Montag"),
     "dayNameSaturday" : MessageLookupByLibrary.simpleMessage("Samstag"),
     "dayNameSunday" : MessageLookupByLibrary.simpleMessage("Sonntag"),

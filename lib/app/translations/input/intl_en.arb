@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2021-02-20T15:03:13.893750",
+  "@@last_modified": "2021-02-27T19:01:10.402309",
   "appName": "Shopping List",
   "@appName": {
     "type": "Text",
@@ -39,6 +39,11 @@
   },
   "dayNameSunday": "Sunday",
   "@dayNameSunday": {
+    "type": "Text",
+    "context": " common"
+  },
+  "dayNameIdeas": "Ideas",
+  "@dayNameIdeas": {
     "type": "Text",
     "context": " common"
   },

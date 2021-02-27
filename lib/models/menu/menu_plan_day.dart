@@ -8,7 +8,8 @@ enum MenuPlanDay {
   thursday,
   friday,
   saturday,
-  sunday
+  sunday,
+  ideas
 }
 
 extension MenuPlanDayExtension on MenuPlanDay {
@@ -27,8 +28,10 @@ extension MenuPlanDayExtension on MenuPlanDay {
       case MenuPlanDay.sunday:
         return S.of(context).dayNameSunday;
       case MenuPlanDay.monday:
-      default:
         return S.of(context).dayNameMonday;
+      case MenuPlanDay.ideas:
+      default:
+        return S.of(context).dayNameIdeas;
     }
   }
 }

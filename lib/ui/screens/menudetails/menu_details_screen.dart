@@ -18,6 +18,7 @@ class MenuDetailsScreen extends StatefulWidget {
 class _MenuDetailsState extends State<MenuDetailsScreen> {
   final _dishController = TextEditingController();
   MenuPlanDay _selectedDay;
+  int _index;
 
   @override
   void initState() {
@@ -28,6 +29,7 @@ class _MenuDetailsState extends State<MenuDetailsScreen> {
         if (clickedItem != null) {
           _dishController.text = clickedItem.dish;
           _selectedDay = clickedItem.day;
+          _index = clickedItem.index;
         }
       });
     });
@@ -37,7 +39,7 @@ class _MenuDetailsState extends State<MenuDetailsScreen> {
   void _onSave() {
     String dish = _dishController.text;
     if (dish.isEmpty) return;
-    MenuPlanItem item = MenuPlanItem(day: _selectedDay, dish: dish);
+    MenuPlanItem item = MenuPlanItem(index: _index, day: _selectedDay, dish: dish);
     widget.menuDetailsCubit.saveDish(item);
   }
 

@@ -115,6 +115,16 @@ class S {
     );
   }
 
+  /// `Ideen`
+  String get dayNameIdeas {
+    return Intl.message(
+      'Ideen',
+      name: 'dayNameIdeas',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Einkaufsplan`
   String get navigationTabShoppingListTitle {
     return Intl.message(
