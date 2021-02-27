@@ -54,23 +54,26 @@ class _MenuListScreenState extends State<MenuListScreen> {
     );
   }
 
-  ReorderableListView _showMenuList(List<MenuPlanItem> items) {
+  Widget _showMenuList(List<MenuPlanItem> items) {
     List<MenuPlanItem> nonNullList = items
         .where((element) => element.day != null && element.dish != null)
         .toList();
-    return ReorderableListView(
-        children: nonNullList
-            .map(
-              (e) => ListTile(
-                key: Key(e.day.toString()),
-                title: Text(e.day.getLocalizedDay(context)),
-                subtitle: Text(e.dish),
-                trailing: Icon(Icons.menu),
-                onTap: () => Routes.openMenuDetails(context, menuPlanItem: e),
-              ),
-            )
-            .toList(),
-        onReorder: _onReorder);
+    return RefreshIndicator(
+      onRefresh: () => _loadMenuListItems(),
+      child: ReorderableListView(
+          children: nonNullList
+              .map(
+                (e) => ListTile(
+                  key: Key(e.day.toString()),
+                  title: Text(e.day.getLocalizedDay(context)),
+                  subtitle: Text(e.dish),
+                  trailing: Icon(Icons.menu),
+                  onTap: () => Routes.openMenuDetails(context, menuPlanItem: e),
+                ),
+              )
+              .toList(),
+          onReorder: _onReorder),
+    );
   }
 
   void _onReorder(int start, int current) {
