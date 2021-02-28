@@ -27,6 +27,10 @@ abstract class FirestoreDatasource {
   /// menu
   Future<MenuPlan> getMenuPlan();
 
+  Stream<MenuPlan> getAndListenToMenuPlan();
+
+  void pauseMenuStreamSubscription();
+
   Future<void> saveDish(MenuPlanItem menuPlanItem);
 
   void saveNewMenuOrderedList(List<MenuPlanItem> items);

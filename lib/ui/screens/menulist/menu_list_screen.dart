@@ -13,31 +13,12 @@ import 'package:shopping_list/ui/widgets/loading.dart';
 import 'package:shopping_list/ui/widgets/small_divider.dart';
 
 class MenuListScreen extends StatefulWidget {
-  final menuListCubit = GetIt.instance.get<MenuListCubit>();
 
   @override
   State<StatefulWidget> createState() => _MenuListScreenState();
 }
 
 class _MenuListScreenState extends State<MenuListScreen> {
-  List<MenuPlanItem> _localItems;
-  bool _loading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadMenuListItems();
-  }
-
-  Future<void> _loadMenuListItems() {
-    return Future.delayed(Duration.zero)
-        .then((value) => widget.menuListCubit.getMenuListItems().then((value) {
-              setState(() {
-                _loading = false;
-                _localItems = value.plan;
-              });
-            }));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +26,15 @@ class _MenuListScreenState extends State<MenuListScreen> {
       appBar: AppBar(
         title: Text(S.of(context).menuListTitle),
       ),
-      body: _loading ? SimpleLoadingIndicator() : _showMenuList(_localItems),
+      body: AutoBlocProvider<MenuListCubit>(
+        child: BlocBuilder<MenuListCubit, MenuListState>(
+          builder: (context, state) {
+            return state.when(loading: () => SimpleLoadingIndicator(), loaded: (menuPlan) {
+              return _showMenuList(menuPlan.plan, context);
+            });
+          },
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Routes.openMenuDetails(context),
         tooltip: S.of(context).menuListFabTooltip,
@@ -54,13 +43,11 @@ class _MenuListScreenState extends State<MenuListScreen> {
     );
   }
 
-  Widget _showMenuList(List<MenuPlanItem> items) {
+  Widget _showMenuList(List<MenuPlanItem> items, BuildContext context) {
     List<MenuPlanItem> nonNullList = items
         .where((element) => element.day != null && element.dish != null)
         .toList();
-    return RefreshIndicator(
-      onRefresh: () => _loadMenuListItems(),
-      child: ReorderableListView(
+    return ReorderableListView(
           children: nonNullList
               .map(
                 (e) => ListTile(
@@ -72,40 +59,38 @@ class _MenuListScreenState extends State<MenuListScreen> {
                 ),
               )
               .toList(),
-          onReorder: _onReorder),
+          onReorder: (start, current) => _onReorder(start, current, context, nonNullList)
     );
   }
 
-  void _onReorder(int start, int current) {
-    setState(() {
+  void _onReorder(int start, int current, BuildContext context, List<MenuPlanItem> items) {
       if (start < current) {
         int end = current - 1;
-        MenuPlanItem startItem = _localItems[start];
+        MenuPlanItem startItem = items[start];
         int i = 0;
         int local = start;
         do {
-          _localItems[local] = _localItems[++local];
+          items[local] = items[++local];
           i++;
         } while (i < end - start);
-        _localItems[end] = startItem;
+        items[end] = startItem;
       }
       // dragging from bottom to top
       else if (start > current) {
-        MenuPlanItem startItem = _localItems[start];
+        MenuPlanItem startItem = items[start];
         for (int i = start; i > current; i--) {
-          _localItems[i] = _localItems[i - 1];
+          items[i] = items[i - 1];
         }
-        _localItems[current] = startItem;
+        items[current] = startItem;
       }
 
-      _localItems.forEach((element) {
-        element.index = _localItems.indexOf(element);
+      items.forEach((element) {
+        element.index = items.indexOf(element);
       });
-      _saveNewOrder();
-    });
+      _saveNewOrder(context, items);
   }
 
-  void _saveNewOrder() {
-    widget.menuListCubit.saveNewOrderedList(_localItems);
+  void _saveNewOrder(BuildContext context, List<MenuPlanItem> items) {
+    context.read<MenuListCubit>().saveNewOrderedList(items);
   }
 }

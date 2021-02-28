@@ -21,13 +21,17 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
       StreamController.broadcast();
   final StreamController<Set<Category>> _categoriesController =
       StreamController.broadcast();
+  final StreamController<MenuPlan> _menuPlanController =
+  StreamController.broadcast();
 
   Stream get shoppingStream => _shoppingListController.stream;
 
   Stream get categoriesStream => _categoriesController.stream;
+  Stream get menuStream => _menuPlanController.stream;
 
   StreamSubscription _activeShoppingListSubscription;
   StreamSubscription _categoriesSubscription;
+  StreamSubscription _menuListSubscription;
 
   FirestoreDatasourceImpl() {
     menuRef = firestore.collection(Constants.COLLECTION_MENU);
@@ -200,12 +204,47 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   }
 
   @override
+  Stream<MenuPlan> getAndListenToMenuPlan() {
+    if (_menuListSubscription == null) {
+      _menuListSubscription = menuRef.snapshots().listen((event) {
+        List<MenuPlanItem> planItems = [];
+        event.docs.forEach((element) {
+          Map<String, dynamic> map = element.data();
+          int index = map[Constants.FIELD_INDEX] ?? -1;
+          String dish = map[Constants.FIELD_DISH];
+          if (dish != null) {
+            planItems.add(MenuPlanItem(
+                index: index, day: element.id.getMenuPlanDay(), dish: dish));
+          }
+        });
+        planItems
+            .sort((a, b) => a.index.compareTo(b.index));
+        _menuPlanController.add(MenuPlan(plan: planItems));
+      });
+    } else {
+      _menuListSubscription.resume();
+      getMenuPlan().then((value) => _menuPlanController.add(value));
+    }
+
+    return menuStream;
+  }
+
+  @override
+  void pauseMenuStreamSubscription() {
+    if (_menuListSubscription != null) {
+      _menuListSubscription.pause();
+    }
+  }
+
+  @override
   void saveNewMenuOrderedList(List<MenuPlanItem> items) {
+    _menuListSubscription.pause();
     items.forEach((element) {
       menuRef.doc(element.day.toString()).set({
         Constants.FIELD_INDEX: element.index
       }, SetOptions(merge: true));
     });
+    _menuListSubscription.resume();
   }
 
   @override
