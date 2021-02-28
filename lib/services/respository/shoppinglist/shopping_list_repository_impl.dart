@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:injectable/injectable.dart';
 import 'package:shopping_list/models/categories/Category.dart';
 import 'package:shopping_list/models/shopping/shopping_item_edit_type.dart';
@@ -52,10 +54,10 @@ class ShoppingListRepositoryImpl implements ShoppingListRepository {
       return MapEntry(Category(name: key), value);
     });
 
-    items.sort((a, b) => a.category.compareTo(b.category));
+    final sortedMap = SplayTreeMap.from(categoryMap, (a, b) => a.compareTo(b));
 
     List<ShoppingListItem> list = [];
-    categoryMap.forEach((key, value) {
+    sortedMap.forEach((key, value) {
       list.add(ShoppingListHeaderItem(category: key));
       value.forEach((element) {
         list.add(element);
