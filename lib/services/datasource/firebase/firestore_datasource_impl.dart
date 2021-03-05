@@ -11,6 +11,7 @@ import 'package:shopping_list/models/menu/menu_plan_item.dart';
 import 'package:shopping_list/models/shopping/shopping_item_edit_type.dart';
 import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/services/datasource/firebase/firestore_datasource.dart';
+import 'package:shopping_list/app/utils/extensions/string_extensions.dart';
 
 @Singleton(as: FirestoreDatasource)
 class FirestoreDatasourceImpl implements FirestoreDatasource {
@@ -45,8 +46,9 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   Future<List<ShoppingListValueItem>> getShoppingSuggestions(
       String query) async {
     List<ShoppingListValueItem> suggestions = [];
-    final strFrontCode = query.substring(0, query.length - 1);
-    final strEndCode = query.substring(query.length - 1, query.length);
+    final capitalized = query.capitalize();
+    final strFrontCode = capitalized.substring(0, capitalized.length - 1);
+    final strEndCode = capitalized.substring(capitalized.length - 1, capitalized.length);
 
     final limit =
         strFrontCode + String.fromCharCode(strEndCode.codeUnitAt(0) + 1);
@@ -54,7 +56,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
     QuerySnapshot querySnapshot = await shoppingListRef
         .doc(Constants.DOCUMENT_ALL)
         .collection(Constants.SUB_COLLECTION_ITEMS)
-        .where(Constants.FIELD_NAME, isGreaterThanOrEqualTo: query)
+        .where(Constants.FIELD_NAME, isGreaterThanOrEqualTo: capitalized)
         .where(Constants.FIELD_NAME, isLessThan: limit)
         .get();
 
@@ -134,7 +136,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
         .doc(document)
         .collection(Constants.SUB_COLLECTION_ITEMS)
         .add({
-      Constants.FIELD_NAME: shoppingItem.name,
+      Constants.FIELD_NAME: shoppingItem.name.capitalize().trim(),
       Constants.FIELD_CATEGORY:
           shoppingItem.category ?? Constants.DEFAULT_CATEGORY
     });
