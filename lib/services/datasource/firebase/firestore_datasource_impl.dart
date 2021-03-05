@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
@@ -298,8 +299,50 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
   }
 
   @override
-  Future<void> saveCategory(Category category) {
+  Future<void> addCategory(Category category) {
     return categoryRef.add({Constants.FIELD_NAME: category.name});
+  }
+
+  @override
+  Future<void> updateCategory(Category category, previousCategoryName) async {
+    var querySnapshot = await categoryRef
+        .where(Constants.FIELD_NAME, isEqualTo: previousCategoryName)
+        .get();
+    querySnapshot.docs.forEach((element) {
+      element.reference.set({
+        Constants.FIELD_NAME: category.name
+      }, SetOptions(merge: true));
+    });
+
+    // change active items category
+    var activeItems = await shoppingListRef
+        .doc(Constants.DOCUMENT_ACTIVE)
+        .collection(Constants.SUB_COLLECTION_ITEMS)
+        .where(Constants.FIELD_CATEGORY, isEqualTo: previousCategoryName)
+        .get();
+    if (activeItems.docs.isNotEmpty) {
+      activeItems.docs.forEach((element) {
+        element.reference.set({
+          Constants.FIELD_CATEGORY: category.name
+        }, SetOptions(merge: true));
+      });
+    }
+
+    // change all items category
+    var allItems = await shoppingListRef
+        .doc(Constants.DOCUMENT_ALL)
+        .collection(Constants.SUB_COLLECTION_ITEMS)
+        .where(Constants.FIELD_CATEGORY, isEqualTo: previousCategoryName)
+        .get();
+    if (allItems.docs.isNotEmpty) {
+      allItems.docs.forEach((element) {
+        element.reference.set({
+          Constants.FIELD_CATEGORY: category.name
+        }, SetOptions(merge: true));
+      });
+    }
+
+    return Future.value();
   }
 
   @override
@@ -311,7 +354,6 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
       log("Deleted category: $category");
       element.reference.delete();
     });
-
 
     return Future.value();
   }

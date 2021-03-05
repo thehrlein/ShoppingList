@@ -36,12 +36,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             body: RefreshIndicator(
               child: state.when(
                 loading: () => SimpleLoadingIndicator(),
-                loaded: _showCategories,
+                loaded: (List<Category> categories) => _showCategories(categories, context),
               ),
               onRefresh: () => widget.categoriesCubit.refreshCategories(),
             ),
             floatingActionButton: FloatingActionButton(
-              onPressed: () => _onFabClicked(context),
+              onPressed: () => _openCategoryDialog(context),
               tooltip: S.of(context).menuListFabTooltip,
               child: const Icon(Icons.add),
             ),
@@ -51,21 +51,24 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
-  Widget _showCategories(List<Category> categories) {
+  Widget _showCategories(List<Category> categories, BuildContext context) {
     return ListView.separated(
       itemBuilder: (context, index) {
         Category item = categories[index];
-        return _createCategoryItem(item);
+        return _createCategoryItem(item, context);
       },
       separatorBuilder: (context, index) => SmallDivider(),
       itemCount: categories.length,
     );
   }
 
-  Widget _createCategoryItem(Category item) {
+  Widget _createCategoryItem(Category item, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(Spaces.space_4),
       child: InkWell(
+        onTap: () {
+          _openCategoryDialog(context, currentItemName: item.name);
+        },
         child: Container(
           child: Center(
             child: Row(
@@ -92,7 +95,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
-  void _onFabClicked(BuildContext context) {
+  void _openCategoryDialog(BuildContext context, {String currentItemName = ""}){
+    _addCategoryController.text = currentItemName;
     showDialog(
       context: context,
       builder: (context) {
@@ -123,7 +127,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               child: Text(S.of(context).categoriesAddDialogButtonSave),
               style:
                   TextButton.styleFrom(primary: Theme.of(context).accentColor),
-              onPressed: () => _saveCategory(context),
+              onPressed: () => _saveCategory(context, currentItemName),
             )
           ],
         );
@@ -131,12 +135,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
-  void _saveCategory(BuildContext context) {
+  void _saveCategory(BuildContext context, String previousCategoryName) {
     String name = _addCategoryController.text;
     if (name.isNotEmpty) {
       Category category = Category(name: name);
       widget.categoriesCubit
-          .saveCategory(category)
+          .saveCategory(category, previousCategoryName)
           .then((value) => Routes.pop(context));
     }
   }

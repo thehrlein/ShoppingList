@@ -28,8 +28,12 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   }
 
   @override
-  Future<void> saveCategory(Category category) {
-    return _firestoreDatasource.saveCategory(category);
+  Future<void> saveCategory(Category category, String previousCategoryName) {
+    if (previousCategoryName.isEmpty) {
+      return _firestoreDatasource.addCategory(category);
+    } else {
+      return _firestoreDatasource.updateCategory(category, previousCategoryName);
+    }
   }
 
   @override

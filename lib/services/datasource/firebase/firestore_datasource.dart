@@ -42,7 +42,9 @@ abstract class FirestoreDatasource {
   /// categories
   Stream<Set<Category>> getAndListenToCategories();
 
-  Future<void> saveCategory(Category category);
+  Future<void> addCategory(Category category);
+
+  Future<void> updateCategory(Category category, previousCategoryName);
 
   Future<void> deleteCategory(Category category);
 

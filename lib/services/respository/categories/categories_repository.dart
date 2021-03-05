@@ -5,7 +5,7 @@ abstract class CategoriesRepository {
 
   Stream<List<Category>> getAndListenToCategories();
 
-  Future<void> saveCategory(Category category);
+  Future<void> saveCategory(Category category, String previousCategoryName);
 
   Future<void> deleteCategory(Category category);
 

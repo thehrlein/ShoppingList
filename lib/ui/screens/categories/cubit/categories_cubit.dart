@@ -27,8 +27,8 @@ class CategoriesCubit extends Cubit<CategoriesState> {
         .then((value) => emit(CategoriesLoaded(categories: value)));
   }
 
-  Future<void> saveCategory(Category category) {
-    return _categoriesRepository.saveCategory(category);
+  Future<void> saveCategory(Category category, String previousCategoryName) {
+    return _categoriesRepository.saveCategory(category, previousCategoryName);
   }
 
   Future<void> deleteCategory(Category category) {
