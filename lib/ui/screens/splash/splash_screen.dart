@@ -12,10 +12,11 @@ import 'cubit/splash_cubit.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final key = GetIt.instance.get<NavigationManager>().navigatorKey;
+    final key = GetIt.instance
+        .get<NavigationManager>()
+        .navigatorKey;
     return AutoBlocProvider<SplashCubit>(
       child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
         body: BlocListener<SplashCubit, SplashState>(
           listener: (context, state) {
             if (state is SplashLoaded) {
@@ -28,26 +29,31 @@ class SplashScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.shopping_cart,
-                  size: 100.0,
-                ),
-                SizedBox(height: 50),
-                Padding(
-                  padding: EdgeInsets.all(Spaces.space_2),
-                  child: Text(
-                    S.of(context).appName,
-                    style: Theme.of(context).textTheme.headline5,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(height: 50),
-                CircularProgressIndicator()
-              ],
+              Icon(
+              Icons.shopping_cart,
+              size: 100.0,
+            ),
+            SizedBox(height: 50),
+            Padding(
+              padding: EdgeInsets.all(Spaces.space_2),
+              child: Text(
+                  S
+                      .of(context)
+                      .appName,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headline5,
+              textAlign: TextAlign.center,
             ),
           ),
+          SizedBox(height: 50),
+          CircularProgressIndicator()
+          ],
         ),
       ),
+    ),)
+    ,
     );
   }
 }

@@ -5,7 +5,6 @@ class SmallDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      color: Theme.of(context).accentColor,
       height: 1,
     );
   }

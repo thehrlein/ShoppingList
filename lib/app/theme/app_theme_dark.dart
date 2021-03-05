@@ -3,11 +3,13 @@ import 'package:shopping_list/app/utils/dimens.dart';
 
 ThemeData darkTheme = ThemeData(
   primarySwatch: Colors.grey,
-  primaryColor: Colors.black,
+  primaryColor: Colors.red,
   brightness: Brightness.dark,
+  backgroundColor: Colors.grey[850],
+  scaffoldBackgroundColor: Colors.grey[850],
   accentColor: Colors.white,
   accentIconTheme: IconThemeData(color: Colors.white),
-  dividerColor: Colors.black12,
+  dividerColor: Colors.grey[350],
   fontFamily: "JetBrainsMono",
   buttonTheme: ButtonThemeData(
     buttonColor: Colors.white,

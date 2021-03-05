@@ -3,8 +3,10 @@ import 'package:shopping_list/app/utils/dimens.dart';
 
 ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,
-  primaryColor: Colors.black,
+  primaryColor: Colors.red,
   brightness: Brightness.light,
+  backgroundColor: Colors.grey[50],
+  scaffoldBackgroundColor: Colors.grey[50],
   accentColor: Colors.black,
   accentIconTheme: IconThemeData(color: Colors.white),
   dividerColor: Colors.white54,

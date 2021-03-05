@@ -10,6 +10,8 @@ import 'package:shopping_list/models/shopping/shopping_item_edit_type.dart';
 import 'package:shopping_list/models/shopping/shopping_list_value_item.dart';
 import 'package:shopping_list/ui/screens/shoppingitemdetails/cubit/shopping_item_details_cubit.dart';
 import 'package:shopping_list/ui/widgets/loading.dart';
+import 'package:shopping_list/ui/widgets/primary_button.dart';
+import 'package:shopping_list/ui/widgets/secondary_button.dart';
 
 class ShoppingItemDetailsScreen extends StatefulWidget {
   @override
@@ -99,31 +101,29 @@ class _ShoppingItemDetailsScreenState extends State<ShoppingItemDetailsScreen> {
                         SizedBox(
                           height: Spaces.space_6,
                         ),
-                        RaisedButton(
-                          child:
-                              Text(S.of(context).shoppingItemDetailsButtonSave),
+                        PrimaryButton(
+                          text: S.of(context).shoppingItemDetailsButtonSave,
                           onPressed: () {
                             context
                                 .read<ShoppingItemDetailsCubit>()
                                 .editShoppingItem(
                                     editType: editType,
                                     newItem: ShoppingListValueItem(
-                                        name: _shoppingItemController.text,
-                                        category: _category),
+                                      name: _shoppingItemController.text,
+                                      category: _category,
+                                    ),
                                     oldItem: _initialShoppingValueItem)
                                 .then((value) => Routes.pop(context));
                           },
                         ),
-                        RaisedButton(
-                          child: Text(S
+                        SecondaryButton(
+                          text: S
                               .of(context)
-                              .shoppingItemDetailsButtonEditCategories),
+                              .shoppingItemDetailsButtonEditCategories,
                           onPressed: () => Routes.openCategories(context),
                         ),
-                        RaisedButton(
-                          color: Colors.red,
-                          child: Text(
-                              S.of(context).shoppingItemDetailsButtonDelete),
+                        SecondaryButton(
+                          text: S.of(context).shoppingItemDetailsButtonDelete,
                           onPressed: () {
                             context
                                 .read<ShoppingItemDetailsCubit>()

@@ -6,6 +6,8 @@ import 'package:shopping_list/app/utils/dimens.dart';
 import 'package:shopping_list/models/menu/menu_plan_day.dart';
 import 'package:shopping_list/models/menu/menu_plan_item.dart';
 import 'package:shopping_list/ui/screens/menudetails/cubit/menu_details_cubit.dart';
+import 'package:shopping_list/ui/widgets/primary_button.dart';
+import 'package:shopping_list/ui/widgets/secondary_button.dart';
 
 class MenuDetailsScreen extends StatefulWidget {
   final MenuDetailsCubit menuDetailsCubit =
@@ -106,15 +108,14 @@ class _MenuDetailsState extends State<MenuDetailsScreen> {
             SizedBox(
               height: Spaces.space_6,
             ),
-            RaisedButton(
-              onPressed: () => modifiable ? _onSave() : null,
-              child: Text(S.of(context).menuDetailsButtonSave),
+            PrimaryButton(
+              text: S.of(context).menuDetailsButtonSave,
+              onPressed: modifiable ? _onSave : null,
             ),
-            RaisedButton(
-              color: Colors.red,
-              onPressed: () => modifiable ? _onDelete() : null,
-              child: Text(S.of(context).menuDetailsButtonDelete),
-            )
+            SecondaryButton(
+              text: S.of(context).menuDetailsButtonDelete,
+              onPressed: modifiable ? _onDelete : null,
+            ),
           ],
         ),
       ),
