@@ -45,7 +45,7 @@ class _MenuListScreenState extends State<MenuListScreen> {
 
   Widget _showMenuList(List<MenuPlanItem> items, BuildContext context) {
     List<MenuPlanItem> nonNullList = items
-        .where((element) => element.day != null && element.dish != null)
+        .where((element) => element.day != null)
         .toList();
     return ReorderableListView(
           children: nonNullList

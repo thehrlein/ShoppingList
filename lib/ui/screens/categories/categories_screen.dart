@@ -63,46 +63,28 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   }
 
   Widget _createCategoryItem(Category item) {
-    return Dismissible(
-      key: Key(item.name),
-      direction: DismissDirection.startToEnd,
-      background: Container(
-        color: Colors.red,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Spaces.space_4),
-              child: Icon(Icons.delete),
-            ),
-          ],
-        ),
-      ),
-      onDismissed: (direction) {
-        _deleteCategory(item);
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(Spaces.space_4),
-        child: InkWell(
-          child: Container(
-            child: Center(
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 6,
-                    child: Text(
-                      item.name,
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
+    return Padding(
+      padding: const EdgeInsets.all(Spaces.space_4),
+      child: InkWell(
+        child: Container(
+          child: Center(
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 6,
+                  child: Text(
+                    item.name,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: GestureDetector(
-                      child: Icon(Icons.delete),
-                      onTap: () => _onDeleteClicked(item),
-                    ),
-                  )
-                ],
-              ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    child: Icon(Icons.delete),
+                    onTap: () => _onDeleteClicked(item),
+                  ),
+                )
+              ],
             ),
           ),
         ),

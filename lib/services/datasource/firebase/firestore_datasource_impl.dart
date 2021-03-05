@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shopping_list/app/utils/constants.dart';
@@ -178,6 +179,7 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
         .get();
     bool deleted = querySnapshot.docs.isNotEmpty;
     querySnapshot.docs.forEach((element) {
+      log("Deleted shopping item: $shoppingItem");
       element.reference.delete();
     });
     return deleted;
@@ -211,11 +213,10 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
         event.docs.forEach((element) {
           Map<String, dynamic> map = element.data();
           int index = map[Constants.FIELD_INDEX] ?? -1;
-          String dish = map[Constants.FIELD_DISH];
-          if (dish != null) {
-            planItems.add(MenuPlanItem(
-                index: index, day: element.id.getMenuPlanDay(), dish: dish));
-          }
+          String dish = map[Constants.FIELD_DISH] ?? "";
+          planItems.add(MenuPlanItem(
+              index: index, day: element.id.getMenuPlanDay(), dish: dish));
+
         });
         planItems
             .sort((a, b) => a.index.compareTo(b.index));
@@ -257,6 +258,8 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
 
   @override
   Future<void> deleteDish(MenuPlanDay day) {
+    log("Deleted dish: $day");
+
     return menuRef
         .doc(day.toString())
         .update({Constants.FIELD_DISH: FieldValue.delete()});
@@ -272,6 +275,8 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
       String name = map[Constants.FIELD_NAME];
       categories.add(Category(name: name));
     });
+
+    categories.sort((a, b) => a.compareTo(b));
 
     return categories;
   }
@@ -303,8 +308,11 @@ class FirestoreDatasourceImpl implements FirestoreDatasource {
         .where(Constants.FIELD_NAME, isEqualTo: category.name)
         .get();
     querySnapshot.docs.forEach((element) {
+      log("Deleted category: $category");
       element.reference.delete();
     });
+
+
     return Future.value();
   }
 

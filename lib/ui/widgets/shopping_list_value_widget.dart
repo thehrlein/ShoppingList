@@ -18,16 +18,15 @@ class _ShoppingListValueWidgetState extends State<ShoppingListValueWidget> {
   Widget build(BuildContext context) {
     return Dismissible(
       key: Key(widget.item.name),
-      direction: DismissDirection.startToEnd,
+      direction: DismissDirection.endToStart,
       background: Container(
         color: Colors.red,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Spaces.space_4),
-              child: Icon(Icons.delete),
-            ),
-          ],
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Spaces.space_4),
+            child: Icon(Icons.delete, color: Colors.white),
+          ),
         ),
       ),
       onDismissed: (direction) {
