@@ -19,6 +19,8 @@ mixin Sizes {
   static const double border_radius_large = 16;
   static const double border_radius_xlarge = 24;
 
+  static const double list_padding_bottom = 64;
+
 }
 
 mixin FontSizes {

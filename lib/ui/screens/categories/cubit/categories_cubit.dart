@@ -13,12 +13,9 @@ part 'categories_state.dart';
 @Injectable()
 class CategoriesCubit extends Cubit<CategoriesState> {
   final CategoriesRepository _categoriesRepository;
-  StreamSubscription _categorySubscription;
 
   CategoriesCubit(this._categoriesRepository) : super(CategoriesLoading()) {
-    _categorySubscription = _categoriesRepository.getAndListenToCategories().listen((event) {
-      emit(CategoriesLoaded(categories: event));
-    });
+    refreshCategories();
   }
 
   Future<void> refreshCategories() {
@@ -28,20 +25,10 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   }
 
   Future<void> saveCategory(Category category, String previousCategoryName) {
-    return _categoriesRepository.saveCategory(category, previousCategoryName);
+    return _categoriesRepository.saveCategory(category, previousCategoryName).then((value) => refreshCategories());
   }
 
   Future<void> deleteCategory(Category category) {
-    return _categoriesRepository.deleteCategory(category);
-  }
-
-  @override
-  Future<void> close() {
-    _categoriesRepository.cancelSubscription();
-    if (_categorySubscription != null) {
-      _categorySubscription.cancel();
-      _categorySubscription = null;
-    }
-    return super.close();
+    return _categoriesRepository.deleteCategory(category).then((value) => refreshCategories());
   }
 }

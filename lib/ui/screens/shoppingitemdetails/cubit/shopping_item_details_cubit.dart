@@ -23,7 +23,9 @@ class ShoppingItemDetailsCubit extends Cubit<ShoppingItemDetailsState> {
   ShoppingItemDetailsCubit(
       this._categoriesRepository, this._shoppingListRepository)
       : super(ShoppingItemDetailsLoading()) {
-    _categoriesRepository.getCategories().then((value) => emit(ShoppingItemDetailsLoaded(categories: value)));
+    _categorySubscription = _categoriesRepository.getAndListenToCategories().listen((event) {
+      emit(ShoppingItemDetailsLoaded(categories: event));
+    });
   }
 
   Future<void> editShoppingItem(

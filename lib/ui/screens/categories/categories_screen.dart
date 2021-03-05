@@ -53,6 +53,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   Widget _showCategories(List<Category> categories, BuildContext context) {
     return ListView.separated(
+      padding: EdgeInsets.only(bottom: Sizes.list_padding_bottom),
       itemBuilder: (context, index) {
         Category item = categories[index];
         return _createCategoryItem(item, context);

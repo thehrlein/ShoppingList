@@ -11,9 +11,8 @@ class SecondaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool mobile = Platform.isAndroid || Platform.isIOS;
     return Container(
-      margin: EdgeInsets.only(top: mobile ? Spaces.space_0 : Spaces.space_2),
+      margin: EdgeInsets.only(top: Spaces.space_2),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: Theme.of(context).accentColor, onPrimary: Theme.of(context).backgroundColor),
