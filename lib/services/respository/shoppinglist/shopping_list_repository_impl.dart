@@ -51,9 +51,12 @@ class ShoppingListRepositoryImpl implements ShoppingListRepository {
       });
     });
     Map<Category, List<ShoppingListValueItem>> categoryMap = map.map((key, value) {
+      // sort items inside a category
+      value.sort((a,b) => a.compareTo(b));
       return MapEntry(Category(name: key), value);
     });
 
+    // sort categories
     final sortedMap = SplayTreeMap.from(categoryMap, (a, b) => a.compareTo(b));
 
     List<ShoppingListItem> list = [];
