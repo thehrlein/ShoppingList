@@ -59,34 +59,14 @@ class _MenuListScreenState extends State<MenuListScreen> {
                 ),
               )
               .toList(),
-          onReorder: (start, current) => _onReorder(start, current, context, nonNullList)
+          onReorder: (oldIndex, newIndex) => _onReorder(oldIndex, newIndex, context, nonNullList)
     );
   }
 
-  void _onReorder(int start, int current, BuildContext context, List<MenuPlanItem> items) {
-      if (start < current) {
-        int end = current - 1;
-        MenuPlanItem startItem = items[start];
-        int i = 0;
-        int local = start;
-        do {
-          items[local] = items[++local];
-          i++;
-        } while (i < end - start);
-        items[end] = startItem;
-      }
-      // dragging from bottom to top
-      else if (start > current) {
-        MenuPlanItem startItem = items[start];
-        for (int i = start; i > current; i--) {
-          items[i] = items[i - 1];
-        }
-        items[current] = startItem;
-      }
-
-      items.forEach((element) {
-        element.index = items.indexOf(element);
-      });
+  void _onReorder(int oldIndex, int newIndex, BuildContext context, List<MenuPlanItem> items) {
+    if (newIndex > oldIndex) newIndex -= 1;
+    final MenuPlanItem item = items.removeAt(oldIndex);
+    items.insert(newIndex, item);
       _saveNewOrder(context, items);
   }
 
